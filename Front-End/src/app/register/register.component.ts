@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  roles;
+  postions;
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -30,6 +32,10 @@ export class RegisterComponent implements OnInit {
       roleId: ['', Validators.required],
       positionId: ['', Validators.required]
     });
+
+    this.getRoles();
+    this.getPostions();
+
   }
 
   get fval() { return this.registerForm.controls; }
@@ -61,5 +67,40 @@ export class RegisterComponent implements OnInit {
     )
 
   }
+
+
+  getRoles() {
+    this.userService.getUserRoles().subscribe(
+      (data) => {
+        console.log(data);
+        if (data.success) {
+          this.roles = data.response;
+        } else {
+
+        }
+      },
+      (error) => {
+
+      }
+    )
+  }
+
+
+  getPostions() {
+    this.userService.getUserPostions().subscribe(
+      (data) => {
+        console.log(data);
+        if (data.success) {
+          this.postions = data.response;
+        } else {
+
+        }
+      },
+      (error) => {
+
+      }
+    )
+  }
+
 
 }

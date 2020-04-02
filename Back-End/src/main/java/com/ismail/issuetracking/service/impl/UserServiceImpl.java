@@ -4,6 +4,8 @@ import com.ismail.issuetracking.dao.PositionRepository;
 import com.ismail.issuetracking.dao.RoleRepository;
 import com.ismail.issuetracking.dao.UserRepository;
 import com.ismail.issuetracking.dto.UserDTO;
+import com.ismail.issuetracking.entity.Position;
+import com.ismail.issuetracking.entity.Role;
 import com.ismail.issuetracking.entity.User;
 import com.ismail.issuetracking.exception.IssueTrackingException;
 import com.ismail.issuetracking.service.UserService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,5 +73,15 @@ public class UserServiceImpl implements UserService {
             userRepository.deleteById(id);
         }
         return user;
+    }
+
+    @Override
+    public List<Role> findRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public List<Position> findPositions() {
+        return positionRepository.findAll();
     }
 }

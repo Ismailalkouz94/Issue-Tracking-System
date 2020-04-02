@@ -32,7 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> getUserAuthority(Role role) {
         Set<GrantedAuthority> roles = new HashSet<>();
-            roles.add(new SimpleGrantedAuthority(role.getNeme()));
+            roles.add(new SimpleGrantedAuthority(role.getName()));
 
         return new ArrayList<>(roles);
     }

@@ -5,5 +5,5 @@ import com.ismail.issuetracking.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role,Long> {
-    Role findByNeme(String name);
+    Role findByName(String name);
 }
