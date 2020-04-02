@@ -1,0 +1,11 @@
+<div class="card mt-4">
+    <h4 class="card-header">Issues</h4>
+    <div class="card-body">
+        <p>This page can be accessed <u>only by administrators</u>.</p>
+        <p class="mb-1">All users from secure (admin only) api end point:</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="issues">
+            <li *ngFor="let issue of issues">{{issue.title}}</li>
+        </ul>
+    </div>
+</div>
