@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ag-grid-community/dist/styles/ag-grid.css';
+@import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+@import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+@import 'ag-grid-community/dist/styles/ag-theme-material.css';
+
+.ag-row-hover {
+    /* putting in !important so it overrides the theme's styling as it hovers the row also */
+    background-color: #dfdfff !important;
+  }
+  
+  .ag-column-hover {
+    background-color: #81b2db;
+  }

@@ -15,6 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IssueComponent } from './issue/issue.component';
+import { AgGridModule } from 'ag-grid-angular';
+import 'ag-grid-enterprise';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { IssueComponent } from './issue/issue.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   providers: [UserService,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
   bootstrap: [AppComponent]

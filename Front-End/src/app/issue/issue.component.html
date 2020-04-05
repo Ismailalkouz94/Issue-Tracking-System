@@ -1,4 +1,4 @@
-<div class="card mt-4">
+<!-- <div class="card mt-4">
     <h4 class="card-header">Issues</h4>
     <div class="card-body">
         <p>This page can be accessed <u>only by administrators</u>.</p>
@@ -7,5 +7,17 @@
         <ul *ngIf="issues">
             <li *ngFor="let issue of issues">{{issue.title}}</li>
         </ul>
+    </div>
+</div> -->
+
+<div>
+    <div class="card mt-4">
+        <h4 class="card-header">Issues</h4>
+        <div class="card-body">
+            <ag-grid-angular style="width: 100%; height: 520px;" class="ag-theme-alpine" [rowData]="rowData"
+                [columnDefs]="columnDefs"  [defaultColDef]="defaultColDef" rowSelection="multiple"  [sideBar]="true" [pagination]="true"
+                [paginationPageSize]="paginationPageSize"  [animateRows]="true" [tooltipShowDelay]="tooltipShowDelay">
+            </ag-grid-angular>
+        </div>
     </div>
 </div>
