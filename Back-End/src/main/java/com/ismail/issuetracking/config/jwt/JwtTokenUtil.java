@@ -1,12 +1,11 @@
 package com.ismail.issuetracking.config.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
-    public static final long JWT_TOKEN_VALIDITY = 30 * 60;
+    public static final long JWT_TOKEN_VALIDITY = 1 * 60;
     @Value("${jwt.secret}")
     private String secret;
 
@@ -64,8 +63,23 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //validate token
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, UserDetails userDetails, HttpServletRequest httpServletRequest) {
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        try {
+            return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        }catch (SignatureException ex){
+            System.out.println("Invalid JWT Signature");
+        }catch (MalformedJwtException ex){
+            System.out.println("Invalid JWT token");
+        }catch (ExpiredJwtException ex){
+            System.out.println("Expired JWT token");
+            httpServletRequest.setAttribute("expired",ex.getMessage());
+        }catch (UnsupportedJwtException ex){
+            System.out.println("Unsupported JWT exception");
+        }catch (IllegalArgumentException ex){
+            System.out.println("Jwt claims string is empty");
+        }
+        return false;
+
     }
 }

@@ -1,5 +1,6 @@
 package com.ismail.issuetracking.dao;
 
+import com.ismail.issuetracking.entity.Issues;
 import com.ismail.issuetracking.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

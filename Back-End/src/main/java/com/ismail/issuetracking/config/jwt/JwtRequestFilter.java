@@ -1,6 +1,8 @@
 package com.ismail.issuetracking.config.jwt;
 
+import com.ismail.issuetracking.exception.IssueTrackingException;
 import com.ismail.issuetracking.service.impl.MyUserDetailsService;
+import com.ismail.issuetracking.util.Constants;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,13 +31,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
 
-        if (request.getMethod().equalsIgnoreCase("OPTIONS"))  {
+        if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
             System.out.println("Pre-flight");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT");
             response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "Access-Control-Expose-Headers"+"Authorization, content-type," +
-                    "USERID"+"ROLE"+
+            response.setHeader("Access-Control-Allow-Headers", "Access-Control-Expose-Headers" + "Authorization, content-type," +
+                    "USERID" + "ROLE" +
                     "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with,responseType,observe");
             response.setStatus(HttpServletResponse.SC_OK);
             return;
@@ -54,6 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException e) {
                 logger.info("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
+                request.setAttribute(Constants.TOKEN_EXPIRED, e.getMessage());
                 logger.info("JWT Token has expired");
             }
         } else {
@@ -64,7 +67,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 // if token is valid configure Spring Security to manually set
 // authentication
-            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+            if (jwtTokenUtil.validateToken(jwtToken, userDetails, request)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

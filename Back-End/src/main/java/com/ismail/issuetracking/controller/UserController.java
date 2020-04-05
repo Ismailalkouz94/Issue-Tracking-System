@@ -34,7 +34,8 @@ public class UserController {
             responseMessage.setSuccess(false);
             responseMessage.setErrMsg(e.getMessage());
         }
-        return new ResponseEntity<>(responseMessage, HttpStatus.OK);    }
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
 
     @GetMapping("/find/{name}")
     public ResponseMessage getUser(@PathVariable String name) {
@@ -55,11 +56,6 @@ public class UserController {
     @GetMapping("/find/id/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.findById(id);
-    }
-
-    @PostMapping("/errorLogin")
-    public String success() {
-        return "Invalid Credential Or User Not Found";
     }
 
     @PostMapping("/delete/{id}")

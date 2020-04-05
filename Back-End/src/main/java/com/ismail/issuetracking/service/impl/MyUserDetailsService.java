@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String userName) {
         User user = userService.findByUserName(userName);
         List<GrantedAuthority> authorities =getUserAuthority(user.getRole());

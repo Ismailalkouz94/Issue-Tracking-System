@@ -22,15 +22,15 @@ export class AuthenticationService {
     login(userName: string, password: string) {
         return this.http.post<any>(`login?userName=` + userName + `&password=` + password, {})
             .pipe(map(user => {
-                console.log(user.user)
-                if (user && user.jwtResponse.token) {
+                console.log(user.response.user)
+                if (user && user.response.jwtResponse.token) {
                     // store user details in local storage to keep user logged in
-                    localStorage.setItem('currentUser', JSON.stringify(user.user));
-                    localStorage.setItem('token', user.jwtResponse.token);
-                    this.currentUserSubject.next(user.user);
+                    localStorage.setItem('currentUser', JSON.stringify(user.response.user));
+                    localStorage.setItem('token', user.response.jwtResponse.token);
+                    this.currentUserSubject.next(user.response.user);
                 }
 
-                return user.user;
+                return user.response.user;
             }));
     }
 

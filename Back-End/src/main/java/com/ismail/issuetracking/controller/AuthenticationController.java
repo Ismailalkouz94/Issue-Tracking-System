@@ -2,11 +2,16 @@ package com.ismail.issuetracking.controller;
 
 import com.ismail.issuetracking.config.jwt.JwtTokenUtil;
 import com.ismail.issuetracking.entity.User;
+import com.ismail.issuetracking.exception.IssueTrackingException;
 import com.ismail.issuetracking.model.JwtResponse;
 import com.ismail.issuetracking.model.LoginResponse;
+import com.ismail.issuetracking.model.ResponseMessage;
 import com.ismail.issuetracking.service.UserService;
 import com.ismail.issuetracking.service.impl.MyUserDetailsService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,13 +37,24 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(User user) throws Exception {
-        authenticate(user.getUserName(), user.getPassword());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
-        final String token = jwtTokenUtil.generateToken(userDetails);
 
-        user = userService.findByUserName(user.getUserName());
-        JwtResponse jwtResponse = new JwtResponse(token);
-        return ResponseEntity.ok(new LoginResponse(user, jwtResponse));
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            authenticate(user.getUserName(), user.getPassword());
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+
+            user = userService.findByUserName(user.getUserName());
+            JwtResponse jwtResponse = new JwtResponse(token);
+            responseMessage.setResponse(new LoginResponse(user, jwtResponse));
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return ResponseEntity.ok(responseMessage);
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -52,7 +68,17 @@ public class AuthenticationController {
     }
 
     @PostMapping("/errorLogin")
-    public String success() {
-        return  "Invalid Credential Or User Not Found";
+    public ResponseEntity<?> success(User user) {
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            authenticate(user.getUserName(),user.getPassword());
+        } catch (ExpiredJwtException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setErrMsg(e.getMessage());
+            responseMessage.setSuccess(false);
+        }
+        return new ResponseEntity(responseMessage, HttpStatus.UNAUTHORIZED);
     }
 }
