@@ -10,5 +10,7 @@
   }
   
   .ag-column-hover {
-    background-color: #81b2db;
+    background-color: #d4dce0;
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

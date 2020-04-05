@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IssueComponent } from './issue/issue.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { MatIconModule } from '@angular/material';
 import 'ag-grid-enterprise';
 
 @NgModule({
@@ -33,7 +34,8 @@ import 'ag-grid-enterprise';
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    MatIconModule
   ],
   providers: [UserService,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
   bootstrap: [AppComponent]
