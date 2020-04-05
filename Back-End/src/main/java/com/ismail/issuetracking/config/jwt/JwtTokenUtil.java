@@ -15,9 +15,12 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
-    public static final long JWT_TOKEN_VALIDITY = 1 * 60;
+    @Value("${jwt.token.validity}")
+    private String tokenValidity;
     @Value("${jwt.secret}")
     private String secret;
+
+//    public final long JWT_TOKEN_VALIDITY =Long.parseLong(tokenValidity);
 
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {
@@ -58,7 +61,7 @@ public class JwtTokenUtil implements Serializable {
 //   compaction of the JWT to a URL-safe string 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(tokenValidity) * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
@@ -67,16 +70,16 @@ public class JwtTokenUtil implements Serializable {
         final String username = getUsernameFromToken(token);
         try {
             return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-        }catch (SignatureException ex){
+        } catch (SignatureException ex) {
             System.out.println("Invalid JWT Signature");
-        }catch (MalformedJwtException ex){
+        } catch (MalformedJwtException ex) {
             System.out.println("Invalid JWT token");
-        }catch (ExpiredJwtException ex){
+        } catch (ExpiredJwtException ex) {
             System.out.println("Expired JWT token");
-            httpServletRequest.setAttribute("expired",ex.getMessage());
-        }catch (UnsupportedJwtException ex){
+            httpServletRequest.setAttribute("expired", ex.getMessage());
+        } catch (UnsupportedJwtException ex) {
             System.out.println("Unsupported JWT exception");
-        }catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             System.out.println("Jwt claims string is empty");
         }
         return false;
