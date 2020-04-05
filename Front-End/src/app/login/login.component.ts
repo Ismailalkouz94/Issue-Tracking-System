@@ -14,18 +14,18 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService : AuthenticationService,
+    private authenticationService: AuthenticationService,
     private toastr: ToastrService
-  ) { 
+  ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) { 
+    if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
-  }
+    }
   }
 
   ngOnInit() {
@@ -34,13 +34,18 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    //check if there error from othher components
+    if (this.route.snapshot.paramMap.get("isError")) {
+      this.toastr.error(this.route.snapshot.paramMap.get("errDetail"), this.route.snapshot.paramMap.get("errMsg"));
+    }
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 
 
-    // for accessing to form fields
-    get fval() { return this.loginForm.controls; }
+  // for accessing to form fields
+  get fval() { return this.loginForm.controls; }
 
   onFormSubmit() {
     this.submitted = true;
@@ -49,16 +54,16 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-     this.authenticationService.login(this.fval.userName.value, this.fval.password.value)
-        .subscribe(
-            data => {
-              console.log(data)
-              this.router.navigate([this.returnUrl]);
-            },
-            error => {
-              // console.log(error.error.errMsg)
-              this.toastr.error(error.error.errMsg, 'Error');
-                this.loading = false;
-            });
+    this.authenticationService.login(this.fval.userName.value, this.fval.password.value)
+      .subscribe(
+        data => {
+          console.log(data)
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          // console.log(error.error.errMsg)
+          this.toastr.error(error.error.errMsg, 'Error');
+          this.loading = false;
+        });
   }
 }

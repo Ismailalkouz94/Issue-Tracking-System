@@ -23,7 +23,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
                          AuthenticationException authException) throws IOException, ServletException {
         final String expired = (String) request.getAttribute(Constants.TOKEN_EXPIRED);
         if (expired != null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, expired);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, Constants.EXPIRED_TOKEN_ERR_MSG);
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Login details");
         }

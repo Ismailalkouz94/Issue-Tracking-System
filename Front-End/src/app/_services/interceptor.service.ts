@@ -18,7 +18,7 @@ export class InterceptorService implements HttpInterceptor {
     private toastr: ToastrService,
     private router: Router,
     private authenticationService: AuthenticationService
-  ){}
+  ) { }
 
   intercept(
     req: HttpRequest<any>,
@@ -41,8 +41,9 @@ export class InterceptorService implements HttpInterceptor {
         if (error.status === 401) {
           // 401 handled in auth.interceptor
           // this.toastr.error(error.error.errMsg); 
+          this.router.navigate(['/login', { isError: true, errMsg: error.error.errMsg, errDetail: error.error.errDetail}]);
           this.authenticationService.logout();
-          this.router.navigate(['/login']);  
+
         }
         return throwError(error);
       })

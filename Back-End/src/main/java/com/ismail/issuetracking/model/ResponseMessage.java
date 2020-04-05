@@ -19,6 +19,7 @@ public class ResponseMessage implements Serializable {
     private boolean isSuccess;
     private Object response;
     private String errMsg;
+    private String errDetail;
     private String successMsg;
 
     private static ResponseMessage responseMessage = null;
@@ -29,6 +30,7 @@ public class ResponseMessage implements Serializable {
         }
         responseMessage.setResponse(null);
         responseMessage.setErrMsg(null);
+        responseMessage.setErrDetail(null);
         responseMessage.setSuccessMsg(null);
 
         return responseMessage;
