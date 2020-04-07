@@ -5,6 +5,7 @@ import com.ismail.issuetracking.entity.User;
 import com.ismail.issuetracking.exception.IssueTrackingException;
 import com.ismail.issuetracking.model.ResponseMessage;
 import com.ismail.issuetracking.service.UserService;
+import com.ismail.issuetracking.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,23 @@ public class UserController {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
             responseMessage.setResponse(userService.findByUserName(name));
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return responseMessage;
+    }
+
+
+    @GetMapping("/find")
+    public ResponseMessage getAllUser() {
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            responseMessage.setResponse(userService.find());
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);

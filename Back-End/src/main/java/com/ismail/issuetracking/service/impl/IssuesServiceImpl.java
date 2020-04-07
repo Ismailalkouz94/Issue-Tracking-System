@@ -1,7 +1,9 @@
 package com.ismail.issuetracking.service.impl;
 
 import com.ismail.issuetracking.dao.*;
+import com.ismail.issuetracking.dto.IssueDTO;
 import com.ismail.issuetracking.entity.Issues;
+import com.ismail.issuetracking.entity.Type;
 import com.ismail.issuetracking.entity.User;
 import com.ismail.issuetracking.exception.IssueTrackingException;
 import com.ismail.issuetracking.service.IssuesService;
@@ -23,11 +25,12 @@ public class IssuesServiceImpl implements IssuesService {
     private TypeRepository typeRepository;
 
     @Override
-    public Issues add(Issues issues) {
-        issues.setUser(userRepository.getOne(issues.getUser().getId()));
-        issues.setAssignTo(userRepository.getOne(issues.getAssignTo().getId()));
-        issues.setType(typeRepository.getOne(issues.getType().getId()));
-        issues.setStatus(statusRepository.getOne(issues.getStatus().getId()));
+    public Issues add(IssueDTO issueDTO) {
+        Issues issues=issueDTO.toIssues();
+        issues.setUser(userRepository.getOne(issueDTO.getOwner()));
+        issues.setAssignTo(userRepository.getOne(issueDTO.getAssignTo()));
+        issues.setType(typeRepository.getOne(issueDTO.getType()));
+        issues.setStatus(statusRepository.getOne(1l));
         return issuesRepository.save(issues);
     }
 
@@ -71,5 +74,20 @@ public class IssuesServiceImpl implements IssuesService {
         } else {
             return issuesRepository.findByUser(user);
         }
+    }
+
+    @Override
+    public List<Issues> findByAssigned(Long id) {
+        User user = userRepository.findById(id).get();
+        if (user == null) {
+            throw new IssueTrackingException("USER_NOT_FOUND");
+        } else {
+            return issuesRepository.findByAssignTo(user);
+        }
+    }
+
+    @Override
+    public List<Type> findAllTypes() {
+        return typeRepository.findAll();
     }
 }

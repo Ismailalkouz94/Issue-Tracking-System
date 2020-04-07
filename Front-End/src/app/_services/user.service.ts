@@ -10,25 +10,32 @@ export class UserService {
 
   register(user: User) {
     console.log(user);
-      return this.http.post<any>(`user/add`, user)
+    return this.http.post<any>(`user/add`, user)
       .pipe(map(data => {
         return data;
-    }));
+      }));
   }
 
   getUserRoles() {
-      return this.http.get<any>(`user/find/role`)
+    return this.http.get<any>(`user/find/role`)
       .pipe(map(data => {
         return data;
-    }));
+      }));
   }
 
   getUserPostions() {
     return this.http.get<any>(`user/find/postion`)
-    .pipe(map(data => {
-      return data;
-  }));
-}
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  getAllUsers() {
+    return this.http.get<any>(`user/find`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
 
 
 }

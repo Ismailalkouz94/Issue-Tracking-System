@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IssueComponent } from './issue/issue.component';
 import { Role, RoleEnum } from './_models/user';
+import { CreateIssueComponent } from './create-issue/create-issue.component';
 
 
 const routes: Routes = [
@@ -27,12 +28,15 @@ const routes: Routes = [
   {
     path: 'issue',
     component: IssueComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: [RoleEnum.Admin]
-    }
+    canActivate: [AuthGuard]
   },
-  { path: '**', redirectTo: '' }
+  {
+    path: 'createIssue',
+    component: CreateIssueComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '' },
+
 
 ];
 

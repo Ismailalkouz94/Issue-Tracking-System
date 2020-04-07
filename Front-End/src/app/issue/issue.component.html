@@ -12,12 +12,27 @@
 
 <div>
     <div class="card mt-4">
-        <h4 class="card-header">Issues <a routerLink="/addIssue"><mat-icon  >add</mat-icon></a> </h4>
-        <div class="card-body">
-            <ag-grid-angular style="width: 100%; height: 520px;" class="ag-theme-alpine" [rowData]="rowData"
-                [columnDefs]="columnDefs"  [defaultColDef]="defaultColDef" rowSelection="multiple"  [sideBar]="true" [pagination]="true"
-                [paginationPageSize]="paginationPageSize"  [animateRows]="true" >
-            </ag-grid-angular>
+        <h4 class="card-header">Issues <a routerLink="/createIssue"><mat-icon >add</mat-icon></a>
+            <mat-icon style="color:rgb(240, 18, 18);" (click)="deleteRow()">delete</mat-icon>
+         </h4>
+         <div style="align-self: center;">
+         <button (click)="getUserIssues()">Created Issue</button>
+         <button (click)="getUserAssignedIssues()">Assigned Issue</button>
         </div>
+        <div class="card-body">
+
+            <ag-grid-angular style="width: 100%; height: 520px;"
+                class="ag-theme-alpine" [rowData]="rowData"
+                [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef"
+                rowSelection="single"
+                [sideBar]="true"
+                [pagination]="true"
+                [paginationPageSize]="paginationPageSize"
+                [animateRows]="true"
+                (selectionChanged)="onSelectionChanged($event)"
+                (gridReady)="onGridReady($event)"
+                 >
+            </ag-grid-angular>
     </div>
 </div>

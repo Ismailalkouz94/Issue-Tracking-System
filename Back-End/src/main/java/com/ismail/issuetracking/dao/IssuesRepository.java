@@ -9,5 +9,6 @@ import java.util.List;
 public interface IssuesRepository extends JpaRepository<Issues, Long> {
     void deleteById(Issues issues);
     List<Issues> findByUser(User user);
+    List<Issues> findByAssignTo(User user);
 
 }

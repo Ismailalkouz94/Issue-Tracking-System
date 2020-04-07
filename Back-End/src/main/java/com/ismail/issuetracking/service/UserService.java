@@ -13,6 +13,8 @@ public interface UserService {
 
     User findByUserName(String userName);
 
+    List<User> find();
+
     Optional<User> findById(Long id);
 
     User delete(Long id);

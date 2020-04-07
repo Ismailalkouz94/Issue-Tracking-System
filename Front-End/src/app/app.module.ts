@@ -18,6 +18,7 @@ import { IssueComponent } from './issue/issue.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material';
 import 'ag-grid-enterprise';
+import { CreateIssueComponent } from './create-issue/create-issue.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import 'ag-grid-enterprise';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    IssueComponent
+    IssueComponent,
+    CreateIssueComponent
   ],
   imports: [
     BrowserModule,
