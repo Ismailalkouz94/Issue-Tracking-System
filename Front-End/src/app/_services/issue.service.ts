@@ -7,7 +7,7 @@ import { Issue } from '../_models';
 @Injectable({
   providedIn: 'root'
 })
-export class IsseService {
+export class IssueService {
 
   constructor(private http: HttpClient) { }
 

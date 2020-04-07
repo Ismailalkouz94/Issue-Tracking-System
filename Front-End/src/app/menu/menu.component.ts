@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthenticationService } from './_services';
-import { User, Role, RoleEnum } from './_models';
+import { User, Role, RoleEnum } from '../_models';
+import { AuthenticationService } from '../_services';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class AppComponent {
+export class MenuComponent implements OnInit {
+
   currentUser: User;
 
   constructor(
@@ -17,6 +17,9 @@ export class AppComponent {
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
+
+  ngOnInit() {
   }
 
   get isAdmin() {
@@ -31,8 +34,6 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  issue() {
-    this.router.navigate(['/issue']);
-  }
+
 
 }

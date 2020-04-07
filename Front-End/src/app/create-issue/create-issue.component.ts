@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IsseService } from '../_services/isse.service';
+import { IssueService } from '../_services/issue.service';
 
 @Component({
   selector: 'app-create-issue',
@@ -21,7 +21,7 @@ export class CreateIssueComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private issueService: IsseService,
+    private issueService: IssueService,
     private toastr: ToastrService
   ) { 
     this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';

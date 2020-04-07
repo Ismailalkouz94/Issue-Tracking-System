@@ -19,6 +19,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material';
 import 'ag-grid-enterprise';
 import { CreateIssueComponent } from './create-issue/create-issue.component';
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CreateIssueComponent } from './create-issue/create-issue.component';
     RegisterComponent,
     HomeComponent,
     IssueComponent,
-    CreateIssueComponent
+    CreateIssueComponent,
+    MenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IsseService } from '../_services/isse.service';
+import { IssueService } from '../_services/issue.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
 
@@ -37,7 +37,7 @@ export class IssueComponent implements OnInit {
     sortable: true,
   };
 
-  constructor(private issueService: IsseService, private toastr: ToastrService) {
+  constructor(private issueService: IssueService, private toastr: ToastrService) {
     this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';
 
   }

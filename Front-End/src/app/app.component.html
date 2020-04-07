@@ -9,21 +9,7 @@
 </nav> -->
 
 
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark" *ngIf="currentUser">
-      <div><a routerLink="/" class="navbar-brand">
-        Home</a></div>
-
-      <ul class="navbar-nav">
-          <li><a *ngIf="isAdmin" routerLink="/issue" class="nav-link">Issues</a></li>
-          <li><a *ngIf="isAdmin" routerLink="/register" class="nav-link">Register User</a></li>
-      </ul>
-
-      <ul class="navbar-nav navbar-collapse justify-content-end">
-              <li><a routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
-      </ul>
-  </nav>
-</header>
+<app-menu></app-menu>
 
 
 
@@ -32,10 +18,4 @@
   <router-outlet></router-outlet>
 </div>
 
-<!-- credits -->
-<div class="text-center mt-4">
-  <p>
-      <a href="#" target="_top">Issue Tracking System</a>
-  </p>
-
-</div>
+<app-footer></app-footer>

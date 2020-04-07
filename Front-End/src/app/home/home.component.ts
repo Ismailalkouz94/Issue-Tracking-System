@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services';
-import { IsseService } from '../_services/isse.service';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +6,7 @@ import { IsseService } from '../_services/isse.service';
 })
 export class HomeComponent implements OnInit {
   public currentUser;
-  constructor(private issueService: IsseService,
-    ) {
+  constructor() {
     this.currentUser = localStorage.getItem('currentUser')? JSON.parse(localStorage.getItem('currentUser')) : '';
    }
 
