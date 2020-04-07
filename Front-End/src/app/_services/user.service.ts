@@ -17,21 +17,21 @@ export class UserService {
   }
 
   getUserRoles() {
-    return this.http.get<any>(`user/find/role`)
+    return this.http.get<any>(`user/role`)
       .pipe(map(data => {
         return data;
       }));
   }
 
   getUserPostions() {
-    return this.http.get<any>(`user/find/postion`)
+    return this.http.get<any>(`user/postion`)
       .pipe(map(data => {
         return data;
       }));
   }
 
   getAllUsers() {
-    return this.http.get<any>(`user/find`)
+    return this.http.get<any>(`user`)
       .pipe(map(data => {
         return data;
       }));

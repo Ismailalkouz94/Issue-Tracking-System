@@ -38,11 +38,11 @@ public class UserController {
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{name}")
-    public ResponseMessage getUser(@PathVariable String name) {
+    @GetMapping("/{userName}")
+    public ResponseMessage getUser(@PathVariable String userName) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
-            responseMessage.setResponse(userService.findByUserName(name));
+            responseMessage.setResponse(userService.findByUserName(userName));
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);
@@ -55,7 +55,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/find")
+    @GetMapping("")
     public ResponseMessage getAllUser() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -71,12 +71,12 @@ public class UserController {
         return responseMessage;
     }
 
-    @GetMapping("/find/id/{id}")
+    @GetMapping("/id/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseMessage delete(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -92,7 +92,7 @@ public class UserController {
         return responseMessage;
     }
 
-    @GetMapping("/find/role")
+    @GetMapping("/role")
     public ResponseMessage getRole() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -108,7 +108,7 @@ public class UserController {
         return responseMessage;
     }
 
-    @GetMapping("/find/postion")
+    @GetMapping("/postion")
     public ResponseMessage getPosyion() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {

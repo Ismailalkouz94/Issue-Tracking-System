@@ -34,7 +34,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @PostMapping("/edit")
+    @PutMapping("")
     public ResponseMessage edit(@RequestBody Issues issues) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -50,7 +50,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseMessage delete(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -66,7 +66,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/find")
+    @GetMapping("")
     public ResponseMessage get() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -82,7 +82,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseMessage findById(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -98,7 +98,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/find/user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseMessage getByUser(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -114,7 +114,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/find/assinged/{id}")
+    @GetMapping("/assinged/{id}")
     public ResponseMessage getByAssinged(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -130,7 +130,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/find/type")
+    @GetMapping("/type")
     public ResponseMessage getIssueTypes() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {

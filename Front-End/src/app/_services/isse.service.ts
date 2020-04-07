@@ -12,28 +12,28 @@ export class IsseService {
   constructor(private http: HttpClient) { }
 
   getIssues(id: number) {
-    return this.http.get<any>(`issue/find/user/` + id, {})
+    return this.http.get<any>(`issue/user/${id}`)
       .pipe(map(user => {
         return user;
       }));
   }
 
   getAssignedIssues(id: number) {
-    return this.http.get<any>(`issue/find/assinged/` + id, {})
+    return this.http.get<any>(`issue/assinged/${id}`)
       .pipe(map(user => {
         return user;
       }));
   }
 
   deleteIssue(id: number) {
-    return this.http.post<any>(`issue/delete/` + id, {})
+    return this.http.delete<any>(`issue/${id}`)
       .pipe(map(user => {
         return user;
       }));
   }
 
   getIssueTypes() {
-    return this.http.get<any>(`issue/find/type`)
+    return this.http.get<any>(`issue/type`)
       .pipe(map(data => {
         return data;
       }));
