@@ -52,7 +52,6 @@ export class IssueComponent implements OnInit {
   }
 
   onGridReady(params) {
-    console.log(params);
   }
 
 
@@ -66,7 +65,6 @@ export class IssueComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }
     )
   }
@@ -81,7 +79,6 @@ export class IssueComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }
     )
   }
@@ -91,7 +88,6 @@ export class IssueComponent implements OnInit {
 
     this.issueService.deleteIssue(this.gridApi.getSelectedRows()[0].id).subscribe(
       (data) => {
-        console.log("data", data.response);
         if (data.success) {
           // this.rowData = data.response;
           this.toastr.success(data.successMsg, 'Success');

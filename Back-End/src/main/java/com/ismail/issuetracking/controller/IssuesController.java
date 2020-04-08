@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/issue")
+@RequestMapping("/issues")
 public class IssuesController {
 
     @Autowired

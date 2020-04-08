@@ -12,39 +12,26 @@ export class IssueService {
   constructor(private http: HttpClient) { }
 
   getIssues(id: number) {
-    return this.http.get<any>(`issue/user/${id}`)
-      .pipe(map(user => {
-        return user;
-      }));
+    return this.http.get<any>(`issues/user/${id}`);
   }
 
   getAssignedIssues(id: number) {
-    return this.http.get<any>(`issue/assinged/${id}`)
-      .pipe(map(user => {
-        return user;
-      }));
+    return this.http.get<any>(`issues/assinged/${id}`);
+      // .pipe(map(user => {
+      //   return user;
+      // }));
   }
 
   deleteIssue(id: number) {
-    return this.http.delete<any>(`issue/${id}`)
-      .pipe(map(user => {
-        return user;
-      }));
+    return this.http.delete<any>(`issues/${id}`);
   }
 
   getIssueTypes() {
-    return this.http.get<any>(`issue/type`)
-      .pipe(map(data => {
-        return data;
-      }));
+    return this.http.get<any>(`issues/type`);
   }
 
   createIssue(issue: Issue) {
-    console.log(issue);
-    return this.http.post<any>(`issue/add`, issue)
-      .pipe(map(data => {
-        return data;
-      }));
+    return this.http.post<any>(`issues/add`, issue);
   }
 
 

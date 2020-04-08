@@ -52,7 +52,6 @@ export class CreateIssueComponent implements OnInit {
     this.registerForm.controls.owner.setValue(this.currentUser.id);
     this.issueService.createIssue(this.registerForm.value).subscribe(
       (data) => {
-        console.log(data);
         if (data.success) {
           this.toastr.success(data.successMsg, 'Success');
           this.loading = false;
@@ -63,7 +62,6 @@ export class CreateIssueComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
         this.toastr.error(error.error.message, 'Error');
         this.loading = false;
       }
@@ -81,7 +79,6 @@ export class CreateIssueComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }
     )
   }
@@ -96,7 +93,6 @@ export class CreateIssueComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }
     )
   }
