@@ -3,6 +3,7 @@ package com.ismail.issuetracking.service.impl;
 import com.ismail.issuetracking.dao.*;
 import com.ismail.issuetracking.dto.IssueDTO;
 import com.ismail.issuetracking.entity.Issues;
+import com.ismail.issuetracking.entity.Status;
 import com.ismail.issuetracking.entity.Type;
 import com.ismail.issuetracking.entity.User;
 import com.ismail.issuetracking.exception.IssueTrackingException;
@@ -35,11 +36,12 @@ public class IssuesServiceImpl implements IssuesService {
     }
 
     @Override
-    public Issues edit(Issues issues) {
-        issues.setUser(userRepository.getOne(issues.getUser().getId()));
-        issues.setAssignTo(userRepository.getOne(issues.getAssignTo().getId()));
-        issues.setType(typeRepository.getOne(issues.getType().getId()));
-        issues.setStatus(statusRepository.getOne(issues.getStatus().getId()));
+    public Issues edit(IssueDTO issueDTO) {
+        Issues issues=issueDTO.toIssues();
+        issues.setUser(userRepository.getOne(issueDTO.getOwner()));
+        issues.setAssignTo(userRepository.getOne(issueDTO.getAssignTo()));
+        issues.setType(typeRepository.getOne(issueDTO.getType()));
+        issues.setStatus(statusRepository.getOne(issueDTO.getStatus()));
         return issuesRepository.save(issues);
     }
 
@@ -89,5 +91,10 @@ public class IssuesServiceImpl implements IssuesService {
     @Override
     public List<Type> findAllTypes() {
         return typeRepository.findAll();
+    }
+
+    @Override
+    public List<Status> findAllStatus() {
+        return statusRepository.findAll();
     }
 }

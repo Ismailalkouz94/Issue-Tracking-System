@@ -34,11 +34,12 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @PutMapping("")
-    public ResponseMessage edit(@RequestBody Issues issues) {
+    @PutMapping("/edit")
+    public ResponseMessage edit(@RequestBody IssueDTO issueDTO) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
-            responseMessage.setResponse(issuesService.edit(issues));
+            responseMessage.setResponse(issuesService.edit(issueDTO));
+            responseMessage.setSuccessMsg(Constants.ISSUE_EDITED_SUCCESSFULLY);
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);
@@ -56,6 +57,7 @@ public class IssuesController {
         try {
             issuesService.delete(id);
             responseMessage.setSuccess(true);
+            responseMessage.setSuccessMsg(Constants.ISSUE_DELETED_SUCCESSFULLY);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);
             responseMessage.setErrMsg(e.getMessage());
@@ -135,6 +137,22 @@ public class IssuesController {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
             responseMessage.setResponse(issuesService.findAllTypes());
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return responseMessage;
+    }
+
+    @GetMapping("/status")
+    public ResponseMessage getIssueStatus() {
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            responseMessage.setResponse(issuesService.findAllStatus());
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);

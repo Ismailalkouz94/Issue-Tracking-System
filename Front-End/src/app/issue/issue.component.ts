@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IssueService } from '../_services/issue.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-issue',
@@ -19,7 +20,7 @@ export class IssueComponent implements OnInit {
   columnDefs = [
     { headerName: '#', field: 'id', sortable: true, filter: true, checkboxSelection: true },
     { headerName: 'Title', field: 'title', sortable: true, filter: true },
-    { headerName: 'Descption', field: 'descption', sortable: true, filter: true },
+    { headerName: 'Desciption', field: 'description', sortable: true, filter: true },
     // { headerName: 'Attachment', field: 'attachment', sortable: true, filter: true },
     { headerName: 'Owner', field: 'user.firstName', sortable: true, filter: true },
     { headerName: 'Assigend To', field: 'assignTo.firstName', sortable: true, filter: true },
@@ -37,7 +38,9 @@ export class IssueComponent implements OnInit {
     sortable: true,
   };
 
-  constructor(private issueService: IssueService, private toastr: ToastrService) {
+  constructor(private issueService: IssueService,
+     private toastr: ToastrService,
+     private router: Router) {
     this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';
 
   }
@@ -101,6 +104,10 @@ export class IssueComponent implements OnInit {
         this.toastr.error(error.error.message, 'Error');
       }
     )
+  }
+
+  goUpdate(){
+    this.router.navigate([`/createIssue/${this.gridApi.getSelectedRows()[0].id}`]);
   }
 
 

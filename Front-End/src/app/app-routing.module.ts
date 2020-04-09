@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'createIssue',
+    path: 'createIssue/:id',
     component: CreateIssueComponent,
     canActivate: [AuthGuard]
   },

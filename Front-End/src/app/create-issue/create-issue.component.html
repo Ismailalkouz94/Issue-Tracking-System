@@ -2,9 +2,17 @@
     <h4 class="card-header">Create New Issue</h4>
     <div class="col-md-6 offset-md-3 mt-4">
         <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+
+            <!-- <div class="form-group">
+                <label for="id">Title</label>
+                <input type="text" formControlName="id"  [(ngModel)]="issue.id" class="form-control"
+                   />
+            </div> -->
+
+
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" formControlName="title" class="form-control"
+                <input type="text" formControlName="title"  [(ngModel)]="issue.title" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && fval.title.errors }" placeholder="Enter Title here" />
                 <div *ngIf="submitted && fval.title.errors" class="invalid-feedback">
                     <div *ngIf="fval.title.errors.required">Title is required</div>
@@ -12,20 +20,20 @@
             </div>
 
             <div class="form-group">
-                <label for="descrption">Descrption</label>
-                <textArea type="text" ngModel ngDefaultControl formControlName="descrption" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && fval.descrption.errors }"
-                    placeholder="Enter Descrption here" rows="8" cols="60"></textArea>
-                <div *ngIf="submitted && fval.descrption.errors" class="invalid-feedback">
-                    <div *ngIf="fval.descrption.required">Descrption is required</div>
+                <label for="descption">Description</label>
+                <textArea type="text" [(ngModel)]="issue.description" ngModel ngDefaultControl formControlName="description" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && fval.description.errors }"
+                    placeholder="Enter description here" rows="8" cols="60"></textArea>
+                <div *ngIf="submitted && fval.description.errors" class="invalid-feedback">
+                    <div *ngIf="fval.description.required">Description is required</div>
                 </div>
             </div>
 
 
             <div class="form-group">
                 <label for="assignTo">Assign To</label>
-                <select formControlName="assignTo" class="form-control">
-                    <option [value]="user.id" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
+                <select formControlName="assignTo" [(ngModel)]="assignToId" class="form-control">
+                    <option  [value]="user.id" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
                 </select>
                 <div *ngIf="submitted && fval.assignTo.errors" class="invalid-feedback">
                     <div *ngIf="fval.assignTo.required">AssignTo is required</div>
@@ -34,12 +42,22 @@
 
             <div class="form-group">
                 <label for="type">Type</label>
-                <select formControlName="type" class="form-control">
+                <select formControlName="type" [(ngModel)]="typeId" class="form-control">
                     <option [value]="type.id" *ngFor="let type of issueType">{{type.neme}}</option>
                 </select>
                 <div class="invalid-feedback">
                     <div>Type is required</div>
                 </div>
+            </div>
+
+            <div *ngIf="id!=-1" class="form-group">
+                <label for="status">Status</label>
+                <select formControlName="status" [(ngModel)]="statusId" class="form-control">
+                    <option [value]="item.id" *ngFor="let item of issueStatus">{{item.name}}</option>
+                </select>
+                <!-- <div classs="invalid-feedback">
+                    <div>Status is required</div>
+                </div> -->
             </div>
 
 

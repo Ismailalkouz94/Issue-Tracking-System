@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IssueService } from '../_services/issue.service';
+import { Issue } from '../_models';
 
 @Component({
   selector: 'app-create-issue',
@@ -16,28 +17,47 @@ export class CreateIssueComponent implements OnInit {
   loading = false;
   submitted = false;
   issueType;
+  issueStatus;
   users;
+  id;
+  issue: Issue;
+  assignToId;
+  typeId;
+  statusId;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private userService: UserService,
     private issueService: IssueService,
     private toastr: ToastrService
-  ) { 
+  ) {
     this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';
   }
 
   ngOnInit() {
+
+    this.issue = new Issue(1, "test", "test", 1, 1, 1, 1);
+
+    this.id = this.route.snapshot.params['id'];
+
     this.registerForm = this.formBuilder.group({
+      id: ['',],
       title: ['', Validators.required],
-      descrption: ['', Validators.required],
+      description: ['', Validators.required],
       owner: ['',],
       assignTo: ['', Validators.required],
       type: ['', Validators.required],
+      status: ['',],
     });
 
     this.getUsers();
     this.getIssueType();
+    if (this.id != -1) {
+      this.getIssueById();
+      this.getIssueStatus();
+      this.registerForm.controls.id.setValue(this.id);
+    }
   }
 
   get fval() { return this.registerForm.controls; }
@@ -50,6 +70,16 @@ export class CreateIssueComponent implements OnInit {
       return;
     }
     this.registerForm.controls.owner.setValue(this.currentUser.id);
+
+    if (this.id == -1) {
+      this.create();
+    } else {
+      this.update()
+    }
+
+  }
+
+  create() {
     this.issueService.createIssue(this.registerForm.value).subscribe(
       (data) => {
         if (data.success) {
@@ -66,7 +96,25 @@ export class CreateIssueComponent implements OnInit {
         this.loading = false;
       }
     )
+  }
 
+  update() {
+    this.issueService.updateIssue(this.registerForm.value).subscribe(
+      (data) => {
+        if (data.success) {
+          this.toastr.success(data.successMsg, 'Success');
+          this.loading = false;
+          this.router.navigate(['/issue']);
+        } else {
+          this.toastr.error(data.errMsg, 'Error');
+          this.loading = false;
+        }
+      },
+      (error) => {
+        this.toastr.error(error.error.message, 'Error');
+        this.loading = false;
+      }
+    )
   }
 
   getIssueType() {
@@ -83,6 +131,20 @@ export class CreateIssueComponent implements OnInit {
     )
   }
 
+  getIssueStatus() {
+    this.issueService.getIssueStatus().subscribe(
+      (data) => {
+        if (data.success) {
+          this.issueStatus = data.response;
+        } else {
+
+        }
+      },
+      (error) => {
+      }
+    )
+  }
+
   getUsers() {
     this.userService.getAllUsers().subscribe(
       (data) => {
@@ -90,6 +152,22 @@ export class CreateIssueComponent implements OnInit {
           this.users = data.response;
         } else {
 
+        }
+      },
+      (error) => {
+      }
+    )
+  }
+
+  getIssueById() {
+    this.issueService.getIssueById(this.id).subscribe(
+      (data) => {
+        if (data.success) {
+          this.issue = data.response;
+          this.assignToId=data.response.assignTo.id;
+          this.typeId=data.response.type.id;
+          this.statusId=data.response.status.id;
+        } else {
         }
       },
       (error) => {

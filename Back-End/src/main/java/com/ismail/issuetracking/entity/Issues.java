@@ -33,7 +33,7 @@ public class Issues implements Serializable {
     private String title;
 
     @Column(name = "DESCPTION")
-    private String descption;
+    private String description;
 
     @Column(name = "ATTACHMENT")
     private String attachment;

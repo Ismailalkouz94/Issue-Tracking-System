@@ -30,8 +30,20 @@ export class IssueService {
     return this.http.get<any>(`issues/type`);
   }
 
+  getIssueStatus() {
+    return this.http.get<any>(`issues/status`);
+  }
+
   createIssue(issue: Issue) {
     return this.http.post<any>(`issues/add`, issue);
+  }
+
+  updateIssue(issue: Issue) {
+    return this.http.put<any>(`issues/edit`, issue);
+  }
+
+  getIssueById(id: number) {
+    return this.http.get<any>(`issues/${id}`);
   }
 
 
