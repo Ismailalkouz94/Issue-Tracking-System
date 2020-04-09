@@ -19,20 +19,4 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
-  get isAdmin() {
-    let role: Role;
-    role = this.currentUser.role;
-
-    return this.currentUser && this.currentUser.role.id === RoleEnum.Admin;
-  }
-
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
-
-  issue() {
-    this.router.navigate(['/issue']);
-  }
-
 }

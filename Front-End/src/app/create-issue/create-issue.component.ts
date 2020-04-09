@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../_services';
+import { UserService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IssueService } from '../_services/issue.service';
-import { Issue } from '../_models';
+import { Issue, User } from '../_models';
 
 @Component({
   selector: 'app-create-issue',
@@ -12,7 +12,7 @@ import { Issue } from '../_models';
   styleUrls: ['./create-issue.component.css']
 })
 export class CreateIssueComponent implements OnInit {
-  public currentUser;
+  public currentUser:User;
   registerForm: FormGroup;
   loading = false;
   submitted = false;
@@ -30,9 +30,10 @@ export class CreateIssueComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private issueService: IssueService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authenticationService:AuthenticationService
   ) {
-    this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {

@@ -42,7 +42,7 @@ public class User implements Serializable {
     @Column(name = "USER_NAME", unique = true)
     private String userName;
 
-//    @JsonIgnore
+    @JsonIgnore
     @Column(name = "PASSWORD")
     private String password;
 
