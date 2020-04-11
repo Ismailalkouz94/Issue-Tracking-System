@@ -4,9 +4,9 @@
 System to track issue, tickets and task with secured applications and api in adtional to user role and permissions. 
 
 ## Technologies
-####Front-End
+#### Front-End
 * Angular 8
-####Back-End
+#### Back-End
 * Spring boot
 * Spring data jpa
 * Spring security
