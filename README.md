@@ -42,4 +42,5 @@ These are the instructions:
 ### Notes
 must be creating database with preferd name and credentials see `application.properties` to configuration details.  
 in this application I'm used MYSQL  
-you can change to any database but make sure to add database dependency in `pom` file and add other config to application.properties`
+you can change to any database but make sure to add database dependency in `pom` file and add other config to application.properties`  
+* make sure data in `data.sql` inserted successfully
