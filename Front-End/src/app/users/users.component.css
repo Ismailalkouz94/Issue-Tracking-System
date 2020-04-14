@@ -10,8 +10,14 @@ table {
     color: white;
     background: rgb(239, 243, 239);
 }
-.mat-icon {
+/* .end {
     font-size: 40px;
     float: right;
     color:rgb(24, 146, 19);
+  } */
+
+  .end{
+    float: right;
+    color:rgb(24, 146, 19);
   }
+ 

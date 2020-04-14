@@ -13,10 +13,11 @@
 <div>
     <div class="card mt-4">
         <h4 class="card-header">Issues
-             <a routerLink="/createIssue/-1"><mat-icon >add</mat-icon></a>
-            <a (click)="goUpdate()"><mat-icon >edit</mat-icon></a>
-            <mat-icon style="color:rgb(240, 18, 18);" (click)="deleteRow()">delete</mat-icon>
-            
+             <a routerLink="/createIssue/-1">
+                <button class="end-add" mat-raised-button >ADD<mat-icon >add</mat-icon></button>
+            </a>
+            <button class="end-edit" mat-raised-button (click)="goUpdate()">Edit<mat-icon >edit</mat-icon></button>
+            <button class="end-delete" mat-raised-button (click)="deleteRow()">Delete<mat-icon >delete</mat-icon></button>
          </h4>
          <div style="align-self: center;">
          <button (click)="getUserIssues()">Created Issue</button>

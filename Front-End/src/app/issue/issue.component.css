@@ -1,5 +1,18 @@
-.mat-icon {
+/* .mat-icon {
     font-size: 35px;
     float: right;
     color:rgb(24, 146, 19);
+  } */
+
+  .end-add{
+    float: right;
+    color:rgb(24, 146, 19);
+  }
+  .end-delete{
+    float: right;
+    color:rgb(241, 6, 6);
+  }
+  .end-edit{
+    float: right;
+    color:rgb(2, 91, 224);
   }

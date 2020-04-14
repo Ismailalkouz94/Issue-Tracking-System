@@ -17,8 +17,8 @@ body {
     background-color: #dfdfff !important;
   }
   
-  .ag-column-hover {
+  /* .ag-column-hover {
     background-color: #d4dce0;
-  }
+  } */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
