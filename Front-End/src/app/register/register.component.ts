@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
         if (data.success) {
           this.toastr.success(data.successMsg, 'Success');
           this.loading = false;
-          this.router.navigate(['/login']);
+          this.router.navigate(['/users']);
         } else {
           this.toastr.error(data.errMsg, 'Error');
           this.loading = false;

@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { IssueComponent } from './issue/issue.component';
 import { Role, RoleEnum } from './_models/user';
 import { CreateIssueComponent } from './create-issue/create-issue.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [RoleEnum.Admin]
+    }
   },
   {
     path: 'register',

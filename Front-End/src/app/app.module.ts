@@ -16,11 +16,13 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IssueComponent } from './issue/issue.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule } from '@angular/material';
 import 'ag-grid-enterprise';
 import { CreateIssueComponent } from './create-issue/create-issue.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
+import { UsersComponent } from './users/users.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { FooterComponent } from './footer/footer.component';
     IssueComponent,
     CreateIssueComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,12 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     AgGridModule.withComponents([]),
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    CdkTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule
   ],
   providers: [UserService,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
   bootstrap: [AppComponent]

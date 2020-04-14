@@ -37,6 +37,7 @@ export class CreateIssueComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.users);
 
     this.issue = new Issue(1, "test", "test", 1, 1, 1, 1);
 
@@ -59,6 +60,7 @@ export class CreateIssueComponent implements OnInit {
       this.getIssueStatus();
       this.registerForm.controls.id.setValue(this.id);
     }
+
   }
 
   get fval() { return this.registerForm.controls; }

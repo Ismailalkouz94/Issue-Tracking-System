@@ -25,5 +25,8 @@ export class UserService {
     return this.http.get<any>(`users`);
   }
 
+  deleteUser(id) {
+    return this.http.delete<any>(`users/${id}`);
+  }
 
 }

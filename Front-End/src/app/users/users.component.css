@@ -1,0 +1,17 @@
+
+table {
+    width: 100%;
+  }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  .highlight {
+    color: white;
+    background: rgb(239, 243, 239);
+}
+.mat-icon {
+    font-size: 40px;
+    float: right;
+    color:rgb(24, 146, 19);
+  }

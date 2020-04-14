@@ -3,6 +3,14 @@
 @import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 @import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 @import 'ag-grid-community/dist/styles/ag-theme-material.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
 
 .ag-row-hover {
     /* putting in !important so it overrides the theme's styling as it hovers the row also */
