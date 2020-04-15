@@ -8,9 +8,13 @@ import { User } from '../_models/user';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  register(user: User) {
-    console.log(user);
+  addUser(user: User) {
     return this.http.post<any>(`users/add`, user);
+  }
+
+  editUser(user: User) {
+    console.log(user);
+    return this.http.put<any>(`users/edit`, user);
   }
 
   getUserRoles() {
@@ -23,6 +27,10 @@ export class UserService {
 
   getAllUsers() {
     return this.http.get<any>(`users`);
+  }
+
+  getUserById(id) {
+    return this.http.get<any>(`users/id/${id}`);
   }
 
   deleteUser(id) {

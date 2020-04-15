@@ -49,6 +49,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User edit(UserDTO userDTO) {
+        if (userRepository.findByUserNameAndIdNot(userDTO.getUserName(),userDTO.getId()).isPresent()) {
+            throw new IssueTrackingException("USER NAME IS EXIST");
+        }
+        if (userRepository.findByEmailAndIdNot(userDTO.getEmail(),userDTO.getId()).isPresent() ) {
+            throw new IssueTrackingException("EMAIL IS EXIST");
+        }
+
+        User user = userDTO.toUser();
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPosition(positionRepository.findById(userDTO.getPositionId()).get());
+        user.setRole(roleRepository.findById(userDTO.getRoleId()).get());
+//        user.setActive(false);
+        return userRepository.save(user);
+    }
+
+    @Override
     public User findByUserName(String userName) {
         User user = null;
         user = userRepository.findByUserName(userName);
@@ -65,8 +82,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
     }
 
     @Override

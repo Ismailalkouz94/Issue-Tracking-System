@@ -70,6 +70,10 @@ export class UsersComponent implements OnInit {
     )
   }
 
+  editUser(id){
+    this.router.navigate([`/register/${id}`]);
+  }
+
 
 
 }

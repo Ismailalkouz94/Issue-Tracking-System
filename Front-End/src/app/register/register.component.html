@@ -1,78 +1,92 @@
-<div class="col-md-6 offset-md-3 mt-5">
-    <h3>User Registration</h3>
-    <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" formControlName="firstName" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here" />
-            <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
-                <div *ngIf="fval.firstName.errors.required">First Name is required</div>
-            </div>
-        </div>
+<div class="container">
+    <div class="card mt-4">
+        <h4 *ngIf="userId == -1"  class="card-header">Add New User</h4>
+        <h4 *ngIf="userId != -1"  class="card-header">Edit User</h4>
+        <div class="col-md-6 offset-md-3 mt-5">
+            <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" [(ngModel)]="user.firstName"
+                        [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }"
+                        placeholder="Enter First Name here" />
+                    <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="fval.firstName.errors.required">First Name is required</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" formControlName="lastName" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && fval.lastName.errors }" placeholder="Enter Last Name here" />
-            <div *ngIf="submitted && fval.lastName.errors" class="invalid-feedback">
-                <div *ngIf="fval.lastName.errors.required">First Name is required</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" formControlName="email" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here" />
-            <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
-                <div *ngIf="fval.email.errors.required">Email is required</div>
-                <div *ngIf="fval.email.errors.email">Enter valid email address</div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" [(ngModel)]="user.lastName"
+                        [ngClass]="{ 'is-invalid': submitted && fval.lastName.errors }"
+                        placeholder="Enter Last Name here" />
+                    <div *ngIf="submitted && fval.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="fval.lastName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" formControlName="email" class="form-control" [(ngModel)]="user.email"
+                        [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here" />
+                    <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+                        <div *ngIf="fval.email.errors.required">Email is required</div>
+                        <div *ngIf="fval.email.errors.email">Enter valid email address</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="email">User Name</label>
-            <input type="text" formControlName="userName" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && fval.userName.errors }" placeholder="Enter User Name here" />
-            <div *ngIf="submitted && fval.userName.errors" class="invalid-feedback">
-                <div *ngIf="fval.userName.errors.required">User Name is required</div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" formControlName="userName" class="form-control" [(ngModel)]="user.userName"
+                        [ngClass]="{ 'is-invalid': submitted && fval.userName.errors }"
+                        placeholder="Enter User Name here" />
+                    <div *ngIf="submitted && fval.userName.errors" class="invalid-feedback">
+                        <div *ngIf="fval.userName.errors.required">User Name is required</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="email">Password</label>
-            <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here" />
-            <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
-                <div *ngIf="fval.password.errors.required">Password is required</div>
-                <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div>
-            </div>
-        </div>
+                <div *ngIf="userId == -1" class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && fval.password.errors }"
+                        placeholder="Enter Password here" />
+                    <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+                        <div *ngIf="fval.password.errors.required">Password is required</div>
+                        <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="postion">Position</label>
-            <select formControlName="positionId" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.positionId.errors }">
-                <option [value]="pos.id" *ngFor="let pos of postions">{{pos.key}}-{{pos.descption}}</option>
-            </select>
-            <div *ngIf="submitted && fval.positionId.errors" class="invalid-feedback">
-                <div *ngIf="fval.positionId.errors.required">Position is required</div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="postion">Position</label>
+                    <select formControlName="positionId" class="form-control" [(ngModel)]="user.position.id"
+                        [ngClass]="{ 'is-invalid': submitted && fval.positionId.errors }">
+                        <option [value]="pos.id" *ngFor="let pos of postions">{{pos.key}}-{{pos.descption}}</option>
+                    </select>
+                    <div *ngIf="submitted && fval.positionId.errors" class="invalid-feedback">
+                        <div *ngIf="fval.positionId.errors.required">Position is required</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select formControlName="roleId" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && fval.roleId.errors }">
-                <option [value]="role.id" *ngFor="let role of roles">{{role.name}}</option>
-            </select>
-            <div *ngIf="submitted && fval.roleId.errors" class="invalid-feedback">
-                <div *ngIf="fval.roleId.errors.required">Role is required</div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select formControlName="roleId" class="form-control" [(ngModel)]="user.role.id"
+                        [ngClass]="{ 'is-invalid': submitted && fval.roleId.errors }">
+                        <option [value]="role.id" *ngFor="let role of roles">{{role.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && fval.roleId.errors" class="invalid-feedback">
+                        <div *ngIf="fval.roleId.errors.required">Role is required</div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Register
-            </button>
+                <div class="form-group">
+                    <button *ngIf="userId == -1" [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Add
+                    </button>
+                    <button *ngIf="userId != -1" [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Edit
+                    </button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>

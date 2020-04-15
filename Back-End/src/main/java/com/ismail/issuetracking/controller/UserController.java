@@ -38,6 +38,23 @@ public class UserController {
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
+    @PutMapping("/edit")
+    public ResponseEntity<ResponseMessage> editUser(@RequestBody UserDTO userDTO) {
+
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            responseMessage.setResponse(userService.edit(userDTO));
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
+
     @GetMapping("/{userName}")
     public ResponseMessage getUser(@PathVariable String userName) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
@@ -72,8 +89,19 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
-        return userService.findById(id);
+    public ResponseMessage getUserById(@PathVariable Long id) {
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            responseMessage.setResponse(userService.findById(id));
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return responseMessage;
     }
 
     @DeleteMapping("/{id}")

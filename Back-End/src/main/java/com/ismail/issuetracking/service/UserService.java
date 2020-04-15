@@ -11,11 +11,13 @@ import java.util.Optional;
 public interface UserService {
     User add(UserDTO userDTO);
 
+    User edit(UserDTO userDTO);
+
     User findByUserName(String userName);
 
     List<User> find();
 
-    Optional<User> findById(Long id);
+    User findById(Long id);
 
     User delete(Long id);
 
