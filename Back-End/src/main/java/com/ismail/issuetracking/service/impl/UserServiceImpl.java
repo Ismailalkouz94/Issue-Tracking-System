@@ -56,12 +56,11 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmailAndIdNot(userDTO.getEmail(),userDTO.getId()).isPresent() ) {
             throw new IssueTrackingException("EMAIL IS EXIST");
         }
-
         User user = userDTO.toUser();
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(userRepository.findByUserName(userDTO.getUserName()).getPassword());
         user.setPosition(positionRepository.findById(userDTO.getPositionId()).get());
         user.setRole(roleRepository.findById(userDTO.getRoleId()).get());
-//        user.setActive(false);
+        user.setActive(userRepository.findByUserName(userDTO.getUserName()).getActive());
         return userRepository.save(user);
     }
 
