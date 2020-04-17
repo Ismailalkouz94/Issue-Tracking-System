@@ -56,15 +56,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         String logoutPage = "/logout";
 
         http
+                .csrf().disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers(loginPage).permitAll()
-                .antMatchers("/user/add", "/user/delete/**","/user/edit/").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/users").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/users/**").hasAuthority("ADMIN")
+                .antMatchers( HttpMethod.DELETE,"/users/**").hasAuthority("ADMIN")
                 .antMatchers("/authenticate").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().csrf().disable()
+                .and()
                 .formLogin()
                 .loginPage(loginPage)
                 .loginPage("/")

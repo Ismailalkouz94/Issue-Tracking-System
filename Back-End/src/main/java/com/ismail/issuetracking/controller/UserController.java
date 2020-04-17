@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<ResponseMessage> addUser(@RequestBody UserDTO userDTO) {
 
         ResponseMessage responseMessage = ResponseMessage.getInstance();
@@ -38,11 +38,12 @@ public class UserController {
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<ResponseMessage> editUser(@RequestBody UserDTO userDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseMessage> editUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
 
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
+            userDTO.setId(id);
             responseMessage.setResponse(userService.edit(userDTO));
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
@@ -120,7 +121,7 @@ public class UserController {
         return responseMessage;
     }
 
-    @GetMapping("/role")
+    @GetMapping("/roles")
     public ResponseMessage getRole() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -136,7 +137,7 @@ public class UserController {
         return responseMessage;
     }
 
-    @GetMapping("/postion")
+    @GetMapping("/postions")
     public ResponseMessage getPosyion() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {

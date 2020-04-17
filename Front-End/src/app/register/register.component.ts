@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
     this.userId = this.route.snapshot.params['id'];
 
     this.registerForm = this.formBuilder.group({
-      id: ['',],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -46,7 +45,6 @@ export class RegisterComponent implements OnInit {
     this.getPostions();
     if (this.userId != -1) {
       this.getUserById(this.userId);
-      this.registerForm.controls.id.setValue(this.userId);
       this.registerForm.controls.password.setValue("******");
     }
 
@@ -91,7 +89,7 @@ export class RegisterComponent implements OnInit {
   }
 
   editUser() {
-    this.userService.editUser(this.registerForm.value).subscribe(
+    this.userService.editUser(this.userId,this.registerForm.value).subscribe(
       (data) => {
         console.log(data);
         if (data.success) {

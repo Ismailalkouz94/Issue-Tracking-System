@@ -9,20 +9,20 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   addUser(user: User) {
-    return this.http.post<any>(`users/add`, user);
+    return this.http.post<any>(`users`, user);
   }
 
-  editUser(user: User) {
+  editUser(id,user: User) {
     console.log(user);
-    return this.http.put<any>(`users/edit`, user);
+    return this.http.put<any>(`users/${id}`, user);
   }
 
   getUserRoles() {
-    return this.http.get<any>(`users/role`);
+    return this.http.get<any>(`users/roles`);
   }
 
   getUserPostions() {
-    return this.http.get<any>(`users/postion`);
+    return this.http.get<any>(`users/postions`);
   }
 
   getAllUsers() {

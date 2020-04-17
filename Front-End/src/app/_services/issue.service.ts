@@ -27,7 +27,7 @@ export class IssueService {
   }
 
   getIssueTypes() {
-    return this.http.get<any>(`issues/type`);
+    return this.http.get<any>(`issues/types`);
   }
 
   getIssueStatus() {
@@ -35,11 +35,11 @@ export class IssueService {
   }
 
   createIssue(issue: Issue) {
-    return this.http.post<any>(`issues/add`, issue);
+    return this.http.post<any>(`issues`, issue);
   }
 
-  updateIssue(issue: Issue) {
-    return this.http.put<any>(`issues/edit`, issue);
+  updateIssue(id,issue: Issue) {
+    return this.http.put<any>(`issues/${id}`, issue);
   }
 
   getIssueById(id: number) {

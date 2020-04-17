@@ -44,7 +44,6 @@ export class CreateIssueComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
 
     this.registerForm = this.formBuilder.group({
-      id: ['',],
       title: ['', Validators.required],
       description: ['', Validators.required],
       owner: ['',],
@@ -58,7 +57,6 @@ export class CreateIssueComponent implements OnInit {
     if (this.id != -1) {
       this.getIssueById();
       this.getIssueStatus();
-      this.registerForm.controls.id.setValue(this.id);
     }
 
   }
@@ -102,7 +100,7 @@ export class CreateIssueComponent implements OnInit {
   }
 
   update() {
-    this.issueService.updateIssue(this.registerForm.value).subscribe(
+    this.issueService.updateIssue(this.id,this.registerForm.value).subscribe(
       (data) => {
         if (data.success) {
           this.toastr.success(data.successMsg, 'Success');

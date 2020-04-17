@@ -17,7 +17,7 @@ public class IssuesController {
     @Autowired
     private IssuesService issuesService;
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseMessage add(@RequestBody IssueDTO issueDTO) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
@@ -34,10 +34,11 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @PutMapping("/edit")
-    public ResponseMessage edit(@RequestBody IssueDTO issueDTO) {
+    @PutMapping("/{id}")
+    public ResponseMessage edit(@PathVariable Long id,@RequestBody IssueDTO issueDTO) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
+            issueDTO.setId(id);
             responseMessage.setResponse(issuesService.edit(issueDTO));
             responseMessage.setSuccessMsg(Constants.ISSUE_EDITED_SUCCESSFULLY);
             responseMessage.setSuccess(true);
@@ -132,7 +133,7 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/type")
+    @GetMapping("/types")
     public ResponseMessage getIssueTypes() {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {

@@ -32,9 +32,9 @@ public class ExceptionHandlerConfig {
 
                 Map<String, Object> errorAttributes = new LinkedHashMap<>();
                 errorAttributes.put("response", null);
-                errorAttributes.put("success", defaultMap.get("status").equals(200));
-                errorAttributes.put("errMsg", defaultMap.get("error"));
-                errorAttributes.put("errDetail", defaultMap.get("message"));
+                errorAttributes.put("success", defaultMap.get(DEFAULT_KEY_STATUS).equals(200));
+                errorAttributes.put("errMsg", defaultMap.get(DEFAULT_KEY_ERROR));
+                errorAttributes.put("errDetail", defaultMap.get(DEFAULT_KEY_MESSAGE));
 
                 errorAttributes.put("successMsg", null);
                 return errorAttributes;
