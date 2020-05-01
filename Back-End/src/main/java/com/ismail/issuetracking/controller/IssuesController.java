@@ -117,6 +117,22 @@ public class IssuesController {
         return responseMessage;
     }
 
+    @GetMapping("/users/{id}/filter/{filterId}")
+    public ResponseMessage filter(@PathVariable Long id,@PathVariable int filterId) {
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            responseMessage.setResponse(issuesService.issuesFilter(id,filterId));
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return responseMessage;
+    }
+
     @GetMapping("/assinged/{id}")
     public ResponseMessage getByAssinged(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();

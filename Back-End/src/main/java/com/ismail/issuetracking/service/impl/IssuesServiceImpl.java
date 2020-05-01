@@ -11,6 +11,7 @@ import com.ismail.issuetracking.service.IssuesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class IssuesServiceImpl implements IssuesService {
 
     @Override
     public Issues add(IssueDTO issueDTO) {
-        Issues issues=issueDTO.toIssues();
+        Issues issues = issueDTO.toIssues();
         issues.setUser(userRepository.getOne(issueDTO.getOwner()));
         issues.setAssignTo(userRepository.getOne(issueDTO.getAssignTo()));
         issues.setType(typeRepository.getOne(issueDTO.getType()));
@@ -37,7 +38,7 @@ public class IssuesServiceImpl implements IssuesService {
 
     @Override
     public Issues edit(IssueDTO issueDTO) {
-        Issues issues=issueDTO.toIssues();
+        Issues issues = issueDTO.toIssues();
         issues.setUser(userRepository.getOne(issueDTO.getOwner()));
         issues.setAssignTo(userRepository.getOne(issueDTO.getAssignTo()));
         issues.setType(typeRepository.getOne(issueDTO.getType()));
@@ -96,5 +97,40 @@ public class IssuesServiceImpl implements IssuesService {
     @Override
     public List<Status> findAllStatus() {
         return statusRepository.findAll();
+    }
+
+    @Override
+    public List<Issues> issuesFilter(Long id, int filterId) {
+        User user = userRepository.findById(id).get();
+        if (user == null) {
+            throw new IssueTrackingException("USER_NOT_FOUND");
+        }
+        List<Issues> issuesList = new ArrayList<>();
+        switch (filterId) {
+            case 1:
+                issuesList = issuesRepository.findByUser(user);
+                break;
+            case 2:
+                issuesList = issuesRepository.findByAssignTo(user);
+                break;
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                Status status = new Status();
+                if (filterId == 3) {
+                    status = statusRepository.findById(1L).get();
+                } else if (filterId == 4) {
+                    status = statusRepository.findById(3L).get();
+                } else if (filterId == 5) {
+                    status = statusRepository.findById(4L).get();
+                } else if (filterId == 6) {
+                    status = statusRepository.findById(2L).get();
+                }
+                issuesList = issuesRepository.findByAssignToAndStatus(user, status);
+                break;
+        }
+
+        return issuesList;
     }
 }

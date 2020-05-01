@@ -52,7 +52,6 @@ export class UsersComponent implements OnInit {
       (error) => {
       }
     )
-    console.log(this.users);
   }
 
   deleteUser(id) {
@@ -73,8 +72,6 @@ export class UsersComponent implements OnInit {
   editUser(id){
     this.router.navigate([`/register/${id}`]);
   }
-
-
 
 }
 

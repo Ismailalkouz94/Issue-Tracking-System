@@ -46,5 +46,9 @@ export class IssueService {
     return this.http.get<any>(`issues/${id}`);
   }
 
+  issuesFilter(id: number, filterId: number) {
+    return this.http.get<any>(`issues/users/${id}/filter/${filterId}`);
+  }
+
 
 }

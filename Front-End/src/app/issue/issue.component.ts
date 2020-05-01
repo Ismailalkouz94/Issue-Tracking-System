@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IssueService } from '../_services/issue.service';
-import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -15,6 +14,7 @@ export class IssueComponent implements OnInit {
   issues: any;
   private gridApi;
   rowData;
+  filterId = 1;
 
   paginationPageSize = 10;
   columnDefs = [
@@ -39,19 +39,19 @@ export class IssueComponent implements OnInit {
   };
 
   constructor(private issueService: IssueService,
-     private toastr: ToastrService,
-     private router: Router) {
+    private toastr: ToastrService,
+    private router: Router) {
     this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : '';
 
   }
 
   ngOnInit() {
-    this.getUserAssignedIssues();
+    // this.getUserAssignedIssues();
+    this.getUserIssues();
   }
 
   onSelectionChanged(event) {
     this.gridApi = event.api.selectionController;
-    console.log(event.api.selectionController.getSelectedRows()[0].title);
   }
 
   onGridReady(params) {
@@ -87,29 +87,46 @@ export class IssueComponent implements OnInit {
   }
 
   deleteRow() {
-    console.log(this.gridApi.getSelectedRows()[0].title)
+    if (this.gridApi.getSelectedRows()[0].user.id != this.currentUser.id) {
+      this.toastr.error("Owner Only Can Delete Issues", 'Error');
+    } else {
+      this.issueService.deleteIssue(this.gridApi.getSelectedRows()[0].id).subscribe(
+        (data) => {
+          if (data.success) {
+            // this.rowData = data.response;
+            this.toastr.success(data.successMsg, 'Success');
+            this.onFilterClick(this.filterId);
+            // this.getUserIssues();
 
-    this.issueService.deleteIssue(this.gridApi.getSelectedRows()[0].id).subscribe(
-      (data) => {
-        if (data.success) {
-          // this.rowData = data.response;
-          this.toastr.success(data.successMsg, 'Success');
-          this.getUserIssues();
-
-        } else {
-          this.toastr.error(data.errMsg, 'Error');
+          } else {
+            this.toastr.error(data.errMsg, 'Error');
+          }
+        },
+        (error) => {
+          this.toastr.error(error.error.message, 'Error');
         }
-      },
-      (error) => {
-        this.toastr.error(error.error.message, 'Error');
-      }
-    )
+      )
+    }
   }
 
-  goUpdate(){
+  goUpdate() {
     this.router.navigate([`/createIssue/${this.gridApi.getSelectedRows()[0].id}`]);
   }
 
+  onFilterClick(value) {
+    this.filterId = value;
+    this.issueService.issuesFilter(this.currentUser.id, value).subscribe(
+      (data) => {
+        if (data.success) {
+          this.rowData = data.response;
+        } else {
 
+        }
+      },
+      (error) => {
+      }
+    )
+
+  }
 
 }

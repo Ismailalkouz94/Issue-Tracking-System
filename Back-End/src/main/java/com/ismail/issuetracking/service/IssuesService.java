@@ -18,6 +18,7 @@ public interface IssuesService {
     List<Issues> findByAssigned(Long id);
     List<Type> findAllTypes();
     List<Status> findAllStatus();
+    List<Issues> issuesFilter(Long id,int filterId);
 
 
 }

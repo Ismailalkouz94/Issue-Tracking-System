@@ -6,10 +6,18 @@ table {
     color: black;
   }
 
-  .highlight {
-    color: white;
+  /* .highlight {
+    color: greenyellow;
     background: rgb(239, 243, 239);
-}
+} */
+
+.mat-row:nth-child(odd){
+  background: rgb(239, 243, 239);
+  }
+
+.mat-row:nth-child(even){
+  background-color:white;
+  }
 /* .end {
     font-size: 40px;
     float: right;

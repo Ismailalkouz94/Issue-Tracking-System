@@ -13,30 +13,34 @@
 <div>
     <div class="card mt-4">
         <h4 class="card-header">Issues
-             <a routerLink="/createIssue/-1">
-                <button class="end-add" mat-raised-button >ADD<mat-icon >add</mat-icon></button>
+            <a routerLink="/createIssue/-1">
+                <button class="end-add" mat-raised-button>ADD<mat-icon>add</mat-icon></button>
             </a>
-            <button class="end-edit" mat-raised-button (click)="goUpdate()">Edit<mat-icon >edit</mat-icon></button>
-            <button class="end-delete" mat-raised-button (click)="deleteRow()">Delete<mat-icon >delete</mat-icon></button>
-         </h4>
-         <div style="align-self: center;">
-         <button (click)="getUserIssues()">Created Issue</button>
-         <button (click)="getUserAssignedIssues()">Assigned Issue</button>
+            <button class="end-edit" mat-raised-button (click)="goUpdate()">Edit<mat-icon>edit</mat-icon></button>
+            <button class="end-delete" mat-raised-button (click)="deleteRow()">Delete<mat-icon>delete</mat-icon>
+                </button>
+        </h4>
+        <div style="align-self: center;" class="form-group">
+            <label for="filter">Filter: </label>
+            <select (change)="onFilterClick($event.target.value)">
+                <option [value]="1">Created Issue</option>
+                <option [value]="2">My Assigned Issue</option>
+                <option [value]="3">My Open Issue</option>
+                <option [value]="4">My Resolved Issue</option>
+                <option [value]="5">My Closed Issue</option>
+                <option [value]="6">My Re Opened Issue</option>
+
+            </select>
         </div>
+
+        <!-- <button (click)="getUserIssues()">Created Issue</button>
+         <button (click)="getUserAssignedIssues()">Assigned Issue</button> -->
         <div class="card-body">
 
-            <ag-grid-angular style="width: 100%; height: 520px;"
-                class="ag-theme-alpine" [rowData]="rowData"
-                [columnDefs]="columnDefs"
-                [defaultColDef]="defaultColDef"
-                rowSelection="single"
-                [sideBar]="true"
-                [pagination]="true"
-                [paginationPageSize]="paginationPageSize"
-                [animateRows]="true"
-                (selectionChanged)="onSelectionChanged($event)"
-                (gridReady)="onGridReady($event)"
-                 >
+            <ag-grid-angular style="width: 100%; height: 520px;" class="ag-theme-alpine" [rowData]="rowData"
+                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" rowSelection="single" [sideBar]="true"
+                [pagination]="true" [paginationPageSize]="paginationPageSize" [animateRows]="true"
+                (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
             </ag-grid-angular>
+        </div>
     </div>
-</div>
