@@ -40,4 +40,9 @@ export class AuthenticationService {
         localStorage.removeItem('token');
         this.currentUserSubject.next(null);
     }
+
+    changePassword(id: number, values) {
+        return this.http.post<any>(`users/${id}/changePassword`, values);
+      }
+    
 }

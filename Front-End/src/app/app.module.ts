@@ -23,6 +23,9 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { UsersComponent } from './users/users.component';
 import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
+import { ModalService } from './_services/modal/modal.service';
+import { CustomModalComponent } from './_modals/custom-modal/custom-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     CreateIssueComponent,
     MenuComponent,
     FooterComponent,
-    UsersComponent
+    UsersComponent,
+    CustomModalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     CdkTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule
   ],
   providers: [UserService,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
   bootstrap: [AppComponent]

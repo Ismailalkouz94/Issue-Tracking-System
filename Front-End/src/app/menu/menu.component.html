@@ -1,15 +1,71 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" *ngIf="currentUser">
-        <div><a routerLink="/" class="navbar-brand">
-          Issue Tracking System</a></div>
-  
-        <ul class="navbar-nav mr-auto">
-            <li  class="nav-item"><a  routerLink="/issue" class="nav-link waves-light">Issues</a></li>
-            <li  class="nav-item"><a *ngIf="isAdmin" routerLink="/users" class="nav-link waves-light">Users</a></li>
-        </ul>
-  
-        <ul class="navbar-nav navbar-collapse justify-content-end">
-                <li  class="nav-item"><a routerLink="/login" (click)="logout()" class="nav-link waves-light">Logout</a></li>
-        </ul>
-    </nav>
-  </header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" *ngIf="currentUser">
+    <div><a routerLink="/" class="navbar-brand">
+        Issue Tracking System</a></div>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a routerLink="/issue" class="nav-link waves-light">Issues</a></li>
+      <li class="nav-item"><a *ngIf="isAdmin" routerLink="/users" class="nav-link waves-light">Users</a></li>
+    </ul>
+
+    <ul class="navbar-nav navbar-collapse justify-content-end">
+      <li class="nav-item"><a routerLink="" (click)="openModal('custom-modal-1')" class="nav-link waves-light">Change
+          Password</a>
+      </li>
+      <li class="nav-item"><a routerLink="/login" (click)="logout()" class="nav-link waves-light">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+<app-custom-modal id="custom-modal-1">
+  <button mat-raised-button class="closeButton" (click)="closeModal('custom-modal-1');">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div class="container">
+    <div class="col-md-6 offset-md-3 mt-5">
+      <h3>Change Password</h3>
+      <div class="card">
+        <h4 class="card-header">Issue Tracking System</h4>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onChangePasswordSubmit()">
+            <div class="form-group">
+              <label for="userName">Old Password</label>
+              <input type="text" formControlName="oldPassword" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.oldPassword.errors }" placeholder="Old User Name here" />
+              <div *ngIf="submitted && fval.oldPassword.errors" class="invalid-feedback">
+                <div *ngIf="fval.oldPassword.errors.required">Old Password is required</div>
+                <div *ngIf="fval.oldPassword.errors.oldPassword">Enter valid Old Password address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" formControlName="newPassword" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.newPassword.errors }" placeholder="New Password here" />
+              <div *ngIf="submitted && fval.newPassword.errors" class="invalid-feedback">
+                <div *ngIf="fval.newPassword.errors.required">New Password is required</div>
+                <div *ngIf="fval.newPassword.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Confirm Password</label>
+              <input type="confirmPassword" formControlName="confirmPassword" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && fval.confirmPassword.errors }"
+                placeholder="Confirm password here" />
+              <div *ngIf="submitted && fval.confirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="fval.confirmPassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="fval.confirmPassword.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-custom-modal>

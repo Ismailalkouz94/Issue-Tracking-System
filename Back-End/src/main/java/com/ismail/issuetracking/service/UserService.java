@@ -1,5 +1,6 @@
 package com.ismail.issuetracking.service;
 
+import com.ismail.issuetracking.dto.ChangePasswordDTO;
 import com.ismail.issuetracking.dto.UserDTO;
 import com.ismail.issuetracking.entity.Position;
 import com.ismail.issuetracking.entity.Role;
@@ -24,4 +25,7 @@ public interface UserService {
     List<Role> findRoles();
 
     List<Position> findPositions();
+
+    void changePassword(ChangePasswordDTO changePasswordDTO);
+
 }

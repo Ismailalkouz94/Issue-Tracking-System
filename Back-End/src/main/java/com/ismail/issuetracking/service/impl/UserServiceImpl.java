@@ -3,6 +3,7 @@ package com.ismail.issuetracking.service.impl;
 import com.ismail.issuetracking.dao.PositionRepository;
 import com.ismail.issuetracking.dao.RoleRepository;
 import com.ismail.issuetracking.dao.UserRepository;
+import com.ismail.issuetracking.dto.ChangePasswordDTO;
 import com.ismail.issuetracking.dto.UserDTO;
 import com.ismail.issuetracking.entity.Position;
 import com.ismail.issuetracking.entity.Role;
@@ -104,5 +105,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Position> findPositions() {
         return positionRepository.findAll();
+    }
+
+    @Override
+    public void changePassword(ChangePasswordDTO changePasswordDTO) {
+
+        if (!userRepository.existsById(changePasswordDTO.getUserId())) {
+            throw new IssueTrackingException("USER_NOT_FOUND");
+        }
+        User user = userRepository.findById(changePasswordDTO.getUserId()).get();
+        if (!changePasswordDTO.getNewPassword().equalsIgnoreCase(changePasswordDTO.getConfirmPassword())){
+            throw new IssueTrackingException("NEW_PASSWORD_AND_CONFIRMED_PASSWORD_NOT_SIMILAR");
+        }
+        if (bCryptPasswordEncoder.matches(changePasswordDTO.getOldPassword(),user.getPassword())){
+            user.setPassword(bCryptPasswordEncoder.encode(changePasswordDTO.getNewPassword()));
+            userRepository.save(user);
+        }else {
+            throw new IssueTrackingException("PASSWORD_NOT_MATCH");
+        }
+
     }
 }

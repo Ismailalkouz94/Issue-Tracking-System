@@ -1,5 +1,6 @@
 package com.ismail.issuetracking.controller;
 
+import com.ismail.issuetracking.dto.ChangePasswordDTO;
 import com.ismail.issuetracking.dto.UserDTO;
 import com.ismail.issuetracking.entity.User;
 import com.ismail.issuetracking.exception.IssueTrackingException;
@@ -151,6 +152,25 @@ public class UserController {
             responseMessage.setErrMsg(e.getMessage());
         }
         return responseMessage;
+    }
+
+    @PostMapping("/{id}/changePassword")
+    public ResponseEntity<ResponseMessage> addUser(@PathVariable Long id, @RequestBody ChangePasswordDTO changePasswordDTO) {
+
+        ResponseMessage responseMessage = ResponseMessage.getInstance();
+        try {
+            changePasswordDTO.setUserId(id);
+            userService.changePassword(changePasswordDTO);
+//            responseMessage.setResponse();
+            responseMessage.setSuccess(true);
+        } catch (IssueTrackingException e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        } catch (Exception e) {
+            responseMessage.setSuccess(false);
+            responseMessage.setErrMsg(e.getMessage());
+        }
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
 }
