@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ITS</string>
+    <string name="splash_its_tetsxt" translatable="false">Issue Tracking System</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="password">الرمز السري</string>
+
+    <string name="issues">المسا~ل</string>
+    <string name="users" >المستخدمين</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="ar">English</string>
+</resources>
