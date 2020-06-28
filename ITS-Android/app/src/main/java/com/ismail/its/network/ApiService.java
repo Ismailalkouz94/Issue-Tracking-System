@@ -1,5 +1,6 @@
 package com.ismail.its.network;
 
+import com.ismail.its.model.response.IssueResponse;
 import com.ismail.its.model.response.LoginResponseMessage;
 import com.ismail.its.model.response.UserResponse;
 
@@ -18,5 +19,8 @@ public interface ApiService {
 
     @GET("/users")
     Call<UserResponse> getUsers();
+
+    @GET("/issues")
+    Call<IssueResponse> getIssues();
 
 }
