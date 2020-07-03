@@ -71,6 +71,7 @@ public class IssuesServiceImpl implements IssuesService {
 
     @Override
     public List<Issues> findByUser(Long id) {
+        System.out.println(">>>>>>> from findByUser");
         User user = userRepository.findById(id).get();
         if (user == null) {
             throw new IssueTrackingException("USER_NOT_FOUND");

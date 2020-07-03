@@ -7,6 +7,9 @@ import com.ismail.issuetracking.model.ResponseMessage;
 import com.ismail.issuetracking.service.IssuesService;
 import com.ismail.issuetracking.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -34,6 +37,7 @@ public class IssuesController {
         return responseMessage;
     }
 
+    @CachePut(value = "userIssues", key = "#issueDTO.id")
     @PutMapping("/{id}")
     public ResponseMessage edit(@PathVariable Long id,@RequestBody IssueDTO issueDTO) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
@@ -52,6 +56,7 @@ public class IssuesController {
         return responseMessage;
     }
 
+    @CacheEvict(value = "userIssues", allEntries=true)
     @DeleteMapping("/{id}")
     public ResponseMessage delete(@PathVariable Long id) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
@@ -101,11 +106,12 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseMessage getByUser(@PathVariable Long id) {
+    @Cacheable(value = "userIssues", key = "#userId")
+    @GetMapping("/user/{userId}")
+    public ResponseMessage getByUser(@PathVariable Long userId) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
-            responseMessage.setResponse(issuesService.findByUser(id));
+            responseMessage.setResponse(issuesService.findByUser(userId));
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);
