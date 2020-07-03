@@ -2,6 +2,7 @@ package com.ismail.its;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -81,12 +82,18 @@ public class NavDrawerActivity extends AppCompatActivity {
 //                doLogout();
                 return true;
             case R.id.nav_ar:
-                String currentLang = Locale.getDefault().getLanguage();
-                if (currentLang.equals("ar")){
-                    currentLang="en";
-                }else if(currentLang.equals("en")){
-                    currentLang="ar";
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(Constants.SHARED_PERF_NAME, Context.MODE_PRIVATE);
+                String currentLang = SharedPrefUtils.getSharedPrefString(sharedPref, "lang");
+                if (currentLang.equals("")) {
+                    currentLang = Locale.getDefault().getLanguage();
                 }
+
+                if (currentLang.equals("ar")) {
+                    currentLang = "en";
+                } else if (currentLang.equals("en")) {
+                    currentLang = "ar";
+                }
+                SharedPrefUtils.setSharedPref(sharedPref, "lang", currentLang);
                 setLocale(currentLang);
                 return true;
             default:
@@ -115,8 +122,8 @@ public class NavDrawerActivity extends AppCompatActivity {
         conf.setLayoutDirection(new Locale(lang));
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, NavDrawerActivity.class);
-        finish();
-        startActivity(refresh);
+        Intent intent = new Intent(this, NavDrawerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
