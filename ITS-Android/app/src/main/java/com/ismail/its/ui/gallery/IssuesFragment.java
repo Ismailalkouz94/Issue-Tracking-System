@@ -1,25 +1,24 @@
 package com.ismail.its.ui.gallery;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ismail.its.R;
 import com.ismail.its.adapter.IssueAdapter;
 import com.ismail.its.model.Issues;
-import com.ismail.its.model.User;
 import com.ismail.its.model.response.IssueResponse;
 import com.ismail.its.network.ApiService;
 import com.ismail.its.network.RetrofitClientInstance;
+import com.ismail.its.utils.Constants;
+import com.ismail.its.utils.SharedPrefUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,9 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GalleryFragment extends Fragment {
+public class IssuesFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private IssuesViewModel issuesViewModel;
 
     RecyclerView recyclerView;
     IssueAdapter issueAdapter;
@@ -46,9 +45,9 @@ public class GalleryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        issuesViewModel =
+                ViewModelProviders.of(this).get(IssuesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_issues, container, false);
         getIssueData(root);
 
         return root;
@@ -62,7 +61,8 @@ public class GalleryFragment extends Fragment {
 
 
         ApiService service = RetrofitClientInstance.getRetrofitInstance(getContext()).create(ApiService.class);
-        Call<IssueResponse> call = service.getIssues();
+        Long userId = SharedPrefUtils.getSharedPrefeLong(getContext().getSharedPreferences(Constants.SHARED_PERF_NAME, Context.MODE_PRIVATE), Constants.USER_ID);
+        Call<IssueResponse> call = service.getIssues(userId,2L);
         call.enqueue(new Callback<IssueResponse>() {
             @Override
             public void onResponse(Call<IssueResponse> call, Response<IssueResponse> response) {

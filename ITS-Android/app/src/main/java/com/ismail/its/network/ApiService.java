@@ -7,6 +7,7 @@ import com.ismail.its.model.response.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -20,7 +21,7 @@ public interface ApiService {
     @GET("/users")
     Call<UserResponse> getUsers();
 
-    @GET("/issues")
-    Call<IssueResponse> getIssues();
+    @GET("/issues/users/{id}/filter/{filterId}")
+    Call<IssueResponse> getIssues(@Path("id") Long userId,@Path("filterId") Long filterId);
 
 }

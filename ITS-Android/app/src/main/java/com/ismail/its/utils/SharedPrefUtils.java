@@ -2,6 +2,8 @@ package com.ismail.its.utils;
 
 import android.content.SharedPreferences;
 
+import java.util.Locale;
+
 public class SharedPrefUtils {
 
     public static void setSharedPref(SharedPreferences sharedPref, String key, String value) {
@@ -13,6 +15,12 @@ public class SharedPrefUtils {
     public static void setSharedPref(SharedPreferences sharedPref, String key, int value) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
+        editor.commit();
+    }
+
+    public static void setSharedPref(SharedPreferences sharedPref, String key, Long value) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(key, value);
         editor.commit();
     }
 
@@ -28,6 +36,10 @@ public class SharedPrefUtils {
 
     public static int getSharedPrefeInt(SharedPreferences sharedPref, String key) {
         return sharedPref.getInt(key, -1);
+    }
+
+    public static Long getSharedPrefeLong(SharedPreferences sharedPref, String key) {
+        return sharedPref.getLong(key, -1L);
     }
 
     public static Boolean getSharedPrefeBool(SharedPreferences sharedPref, String key) {

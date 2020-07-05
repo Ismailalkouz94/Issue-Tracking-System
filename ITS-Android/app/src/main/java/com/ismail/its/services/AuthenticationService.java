@@ -50,6 +50,7 @@ public class AuthenticationService {
 
                         SharedPreferences sharedPref = context.getSharedPreferences(Constants.SHARED_PERF_NAME, Context.MODE_PRIVATE);
                         SharedPrefUtils.setSharedPref(sharedPref, Constants.TOKEN, response.body().getResponse().getJwtResponse().getToken());
+                        SharedPrefUtils.setSharedPref(sharedPref, Constants.USER_ID, response.body().getResponse().getUser().getId());
 
                         Intent intent = new Intent(context, NavDrawerActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
