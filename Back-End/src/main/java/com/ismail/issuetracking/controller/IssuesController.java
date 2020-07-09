@@ -123,11 +123,12 @@ public class IssuesController {
         return responseMessage;
     }
 
-    @GetMapping("/users/{id}/filter/{filterId}")
-    public ResponseMessage filter(@PathVariable Long id,@PathVariable int filterId) {
+    @Cacheable(value = "userIssuesFilter", key = "#userId")
+    @GetMapping("/users/{userId}/filter/{filterId}")
+    public ResponseMessage filter(@PathVariable Long userId,@PathVariable int filterId) {
         ResponseMessage responseMessage = ResponseMessage.getInstance();
         try {
-            responseMessage.setResponse(issuesService.issuesFilter(id,filterId));
+            responseMessage.setResponse(issuesService.issuesFilter(userId,filterId));
             responseMessage.setSuccess(true);
         } catch (IssueTrackingException e) {
             responseMessage.setSuccess(false);

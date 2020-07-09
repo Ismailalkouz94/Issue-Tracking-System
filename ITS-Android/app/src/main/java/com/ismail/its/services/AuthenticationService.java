@@ -64,7 +64,6 @@ public class AuthenticationService {
                                 public void run() {
                                     try {
                                         Toast.makeText(context.getApplicationContext(), jsonObject.get("errMsg").toString(), Toast.LENGTH_SHORT).show();
-                                        AuthenticationService.doLogout(context);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
