@@ -1,4 +1,4 @@
-package com.ismail.its.ui.gallery;
+package com.ismail.its.ui.issues;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
