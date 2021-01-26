@@ -1,18 +1,17 @@
 package com.ismail.issuetracking.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Data
 @ToString
 @EqualsAndHashCode
+@Builder
 public class ResponseMessage implements Serializable {
     private static final long serialVersionUID = 1L;
 
