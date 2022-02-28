@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  docker-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ITS
+      - MYSQL_PASSWORD=root
+  its:
+    image: its-full
+    depends_on:
+      - docker-mysql
+    ports:
+      - 9096:9096
+    environment:
+      - DATABASE_HOST=docker-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=ITS
+      - DATABASE_PORT=3306
