@@ -26,7 +26,8 @@ pipeline {
         stage('Build Docker Image'){
             steps
             {
-                sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
+                docker.build("${PROJECT}:latest")
+//                 sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
             }
         }
     }
