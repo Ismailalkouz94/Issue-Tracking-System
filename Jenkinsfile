@@ -5,6 +5,12 @@ pipeline {
         maven '3.8.4'
        
     }
+
+    environment
+    	{
+    		PROJECT = "its"
+    	}
+
     stages {
         stage("build project") {
             steps {
@@ -18,4 +24,12 @@ pipeline {
             }
         }
     }
+
+    post
+    	{
+    		always
+    		{
+    			sh "sudo rm -rf /var/jenkins_home/workspace/${PROJECT}/*"
+      		}
+    	}
 }
