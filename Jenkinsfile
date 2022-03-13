@@ -23,14 +23,14 @@ pipeline {
                 sh "(cd Back-End/ ; mvn install)"
             }
         }
-    }
-    stage('Build Docker Image')
-        {
+        stage('Build Docker Image'){
             steps
             {
                 sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
             }
         }
+    }
+
 
     post
     {
