@@ -29,7 +29,7 @@ pipeline {
     {
         always
         {
-            sh "sudo rm -rf /var/jenkins_home/workspace/${PROJECT}/*"
+            sh "rm -rf /var/jenkins_home/workspace/${PROJECT}/*"
         }
     }
 }
