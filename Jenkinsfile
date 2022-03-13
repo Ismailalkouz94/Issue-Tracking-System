@@ -26,10 +26,10 @@ pipeline {
     }
 
     post
-    	{
-    		always
-    		{
-    			sh "sudo rm -rf /var/jenkins_home/workspace/${PROJECT}/*"
-      		}
-    	}
+    {
+        always
+        {
+            sh "sudo rm -rf /var/jenkins_home/workspace/${PROJECT}/*"
+        }
+    }
 }
