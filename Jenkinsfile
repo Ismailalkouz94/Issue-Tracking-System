@@ -24,6 +24,13 @@ pipeline {
             }
         }
     }
+    stage('Build Docker Image')
+        {
+            steps
+            {
+                sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
+            }
+        }
 
     post
     {
