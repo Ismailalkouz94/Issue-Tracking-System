@@ -1,6 +1,4 @@
 FROM openjdk:11
-WORKDIR /opt
-ENV PORT 9096
 EXPOSE 9096
-COPY target/*.jar /opt/app.jar
-ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+COPY target/*.jar app.jar
+CMD [ "java", "-jar", "app.jar" ]
