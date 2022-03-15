@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy to Kubernetes Cluster'){
             steps
             {
-                sh "(cd Back-End/ ; kubectl apply -f k8s-app-deployment.yaml"
+                sh "(cd Back-End/ ; kubectl apply -f k8s-app-deployment.yaml)"
             }
         }
 
