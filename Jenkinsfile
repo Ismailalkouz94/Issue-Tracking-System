@@ -28,7 +28,8 @@ pipeline {
             {
                 sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
             }
-        }stage('Push Image to Docker Hub'){
+        }
+        stage('Push Image to Docker Hub'){
             steps
             {
                 sh "docker login -u=ismailkouz -p=55a127ca-98c5-4a5c-a024-cdb25b9d597c"
