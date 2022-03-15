@@ -32,7 +32,7 @@ pipeline {
         stage('Up Docker Compose'){
             steps
             {
-                sh "(cd Back-End/ ; docker-compose up)"
+                sh "(cd Back-End/ ; docker-compose up --detach)"
             }
         }
 //         stage('Push Image to Docker Hub'){
