@@ -29,20 +29,26 @@ pipeline {
                 sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
             }
         }
-        stage('Push Image to Docker Hub'){
+        stage('Up Docker Compose'){
             steps
             {
-                sh "docker login -u=ismailkouz -p=55a127ca-98c5-4a5c-a024-cdb25b9d597c"
-                sh 'docker tag ${PROJECT} ismailkouz/${PROJECT}:latest'
-                sh 'docker push ismailkouz/${PROJECT}:latest'
+                sh "(cd Back-End/ ; docker-compose up"
             }
         }
-        stage('Deploy to Kubernetes Cluster'){
-            steps
-            {
-                sh "(cd Back-End/ ; kubectl apply -f k8s-app-deployment.yaml)"
-            }
-        }
+//         stage('Push Image to Docker Hub'){
+//             steps
+//             {
+//                 sh "docker login -u=ismailkouz -p=55a127ca-98c5-4a5c-a024-cdb25b9d597c"
+//                 sh 'docker tag ${PROJECT} ismailkouz/${PROJECT}:latest'
+//                 sh 'docker push ismailkouz/${PROJECT}:latest'
+//             }
+//         }
+//         stage('Deploy to Kubernetes Cluster'){
+//             steps
+//             {
+//                 sh "(cd Back-End/ ; kubectl apply -f k8s-app-deployment.yaml)"
+//             }
+//         }
 
     }
 
