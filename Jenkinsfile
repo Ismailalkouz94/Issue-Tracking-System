@@ -33,6 +33,7 @@ pipeline {
             steps
             {
                 sh "docker login -u=ismailkouz -p=55a127ca-98c5-4a5c-a024-cdb25b9d597c"
+                sh 'docker tag ${PROJECT} ismailkouz/${PROJECT}:latest'
                 sh 'docker push ismailkouz/${PROJECT}:latest'
             }
         }
