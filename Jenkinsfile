@@ -67,6 +67,7 @@ pipeline {
         {
             steps
             {
+                sh "kubectl config set-context its --cluster=its --user=arn:aws:eks:us-west-1:714089092330:cluster/its"
                 sh "kubectl config use-context its"
             }
         }
