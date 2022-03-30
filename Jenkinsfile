@@ -34,13 +34,16 @@ pipeline {
             steps
             {
                 sh "docker tag ${CONTAINER_REPOSITORY}:latest  ${CONTAINER_REPOSITORY}:latest"
-                script
-                {
-                     docker.withRegistry('https://714089092330.dkr.ecr.us-east-1.amazonaws.com', 'ecr:714089092330.dkr.ecr.us-east-1.amazonaws.com:its')
-                     {
-                        docker.image('${CONTAINER_REPOSITORY}').push('latest')
-                     }
-                }
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 714089092330.dkr.ecr.us-east-1.amazonaws.com"
+                sh 'docker push ${CONTAINER_REPOSITORY}:latest'
+
+//                 script
+//                 {
+//                      docker.withRegistry('https://714089092330.dkr.ecr.us-east-1.amazonaws.com', 'ecr:714089092330.dkr.ecr.us-east-1.amazonaws.com:its')
+//                      {
+//                         docker.image('${CONTAINER_REPOSITORY}').push('latest')
+//                      }
+//                 }
             }
         }
 
