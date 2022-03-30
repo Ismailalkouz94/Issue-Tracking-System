@@ -62,7 +62,16 @@ pipeline {
 //                 sh 'docker push ismailkouz/${PROJECT}:latest'
 //             }
 //         }
-        stage('Deploy to Kubernetes Cluster'){
+
+        stage('Login K8s Cluster')
+        {
+            steps
+            {
+                sh "kubectl config use-context its"
+            }
+        }
+        stage('Deploy to Kubernetes Cluster')
+        {
             steps
             {
                 sh "(cd Back-End/ ; kubectl apply -f k8s-app-deployment.yaml)"
