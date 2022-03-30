@@ -27,13 +27,13 @@ pipeline {
         stage('Build Docker Image'){
             steps
             {
-                sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
+                sh "(cd Back-End/ ; docker build . -t ${CONTAINER_REPOSITORY}:latest)"
             }
         }
         stage('Push Image to AWS ECR'){
             steps
             {
-                sh "docker tag ${CONTAINER_REPOSITORY}:latest  ${PROJECT}:latest"
+                sh "docker tag ${CONTAINER_REPOSITORY}:latest  ${CONTAINER_REPOSITORY}:latest"
                 sh "docker push ${CONTAINER_REPOSITORY}:latest"
             }
         }
