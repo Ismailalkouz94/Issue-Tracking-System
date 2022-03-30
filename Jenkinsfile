@@ -34,7 +34,6 @@ pipeline {
             steps
             {
                 sh "docker tag ${CONTAINER_REPOSITORY}:latest  ${CONTAINER_REPOSITORY}:latest"
-//                 sh "docker push ${CONTAINER_REPOSITORY}:latest"
                 docker.withRegistry('https://714089092330.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:its')
                  {
                     docker.image('${CONTAINER_REPOSITORY}').push('latest')
