@@ -41,7 +41,7 @@ pipeline {
                 {
                      docker.withRegistry('https://714089092330.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:5d099983-3972-42a9-8545-246ceb6b7b44')
                      {
-                        docker.image('${CONTAINER_REPOSITORY}').push('latest')
+                        docker.image('714089092330.dkr.ecr.us-east-1.amazonaws.com/its').push('latest')
                      }
                 }
             }
