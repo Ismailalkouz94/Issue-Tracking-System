@@ -9,6 +9,7 @@ pipeline {
     environment
     	{
     		PROJECT = "its"
+    		CONTAINER_REPOSITORY = "714089092330.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}"
     	}
 
     stages {
@@ -29,12 +30,20 @@ pipeline {
                 sh "(cd Back-End/ ; docker build . -t ${PROJECT}:latest)"
             }
         }
-        stage('Up Docker Compose'){
+        stage('Push Image to AWS ECR'){
             steps
             {
-                sh "(cd Back-End/ ; docker-compose up --detach)"
+                sh "docker push ${REMOTLY}:latest"
             }
         }
+
+
+//         stage('Up Docker Compose'){
+//             steps
+//             {
+//                 sh "(cd Back-End/ ; docker-compose up --detach)"
+//             }
+//         }
 //         stage('Push Image to Docker Hub'){
 //             steps
 //             {
