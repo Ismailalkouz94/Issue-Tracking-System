@@ -33,7 +33,7 @@ pipeline {
         stage('Push Image to AWS ECR'){
             steps
             {
-                sh "docker push ${REMOTLY}:latest"
+                sh "docker push ${CONTAINER_REPOSITORY}:latest"
             }
         }
 
